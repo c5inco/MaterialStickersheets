@@ -4,18 +4,22 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.RowScope.gravity
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.AlignmentLine
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.ui.tooling.preview.Devices
 import androidx.ui.tooling.preview.Preview
 import com.example.materialstickersheets.ui.MaterialStickersheetsTheme
 
@@ -175,9 +179,65 @@ fun BaselineComponents() {
                 FakeThreeLineListItem()
             }
         }
-        Column {
-            TopAppBar() {
-                Text("World")
+        Spacer(modifier = Modifier.preferredWidth(72.dp))
+        Column(modifier = Modifier
+                .preferredWidth(360.dp)
+                .fillMaxHeight()
+                .gravity(Alignment.CenterVertically)
+        ) {
+            OutlinedTextField(
+                label = { Text("Label") },
+                value = TextFieldValue(),
+                onValueChange = {},
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            OutlinedTextField(
+                label = { Text("Label") },
+                value = TextFieldValue(text = "Input text"),
+                onValueChange = {},
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            TextField(
+                label = { Text("Label") },
+                leadingIcon = {
+                    Icon(asset = Icons.Default.Favorite)
+                },
+                trailingIcon = {
+                    Icon(asset = vectorResource(id = R.drawable.ic_visibility))
+                },
+                value = TextFieldValue(),
+                onValueChange = {},
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            TextField(
+                label = { Text("Label") },
+                leadingIcon = {
+                    Icon(asset = Icons.Default.Favorite)
+                },
+                trailingIcon = {
+                    Icon(asset = vectorResource(id = R.drawable.ic_visibility))
+                },
+                value = TextFieldValue(text = "Input text"),
+                onValueChange = {},
+                    modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            Row(
+                verticalGravity = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
+                Slider(
+                    value = 0.3f,
+                    onValueChange = {},
+                    modifier = Modifier
+                            .weight(1.0f)
+                            .padding(horizontal = 16.dp)
+                )
+                Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
             }
         }
     }
@@ -202,7 +262,9 @@ fun FakeThreeLineListItem() {
         trailing = {
             Icon(
                 asset = vectorResource(id = R.drawable.ic_bookmark),
-                tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor())
+                tint = EmphasisAmbient.current.medium.applyEmphasis(
+
+                        contentColor())
             )
         }
     )
@@ -243,8 +305,10 @@ fun FakeStatusbar() {
 // TODO: Interactive preview not reliable
 // TODO: Preview disappears randomly sometimes
 // TODO: Need to have graceful state when preview breaks (from errors/compiler/etc)
+// TODO: Preview looks very pixelated at anything 2000x2000 and above
+// TODO: Need MOAR docs on Modifiers - cheatsheet!
 
-@Preview(showBackground = true, heightDp = 2000)
+@Preview(showBackground = true, heightDp = 1000, widthDp = 1000)
 @Composable
 fun DefaultPreview() {
     MaterialStickersheetsTheme {
