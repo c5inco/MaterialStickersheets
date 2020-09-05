@@ -9,13 +9,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.AlignmentLine
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -240,6 +241,118 @@ fun BaselineComponents() {
                 Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
             }
         }
+        Spacer(modifier = Modifier.preferredWidth(72.dp))
+        Column(modifier = Modifier
+                .preferredWidth(360.dp)
+                .fillMaxHeight()
+                .gravity(Alignment.CenterVertically)
+        ) {
+            Slider(value = 0.5f, steps = 10, onValueChange = {})
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            BottomNavigation() {
+                BottomNavigationItem(
+                    icon = { Icon(asset = Icons.Default.Notifications)},
+                    label = { Text(text = "Tab".toUpperCase()) },
+                    selected = true,
+                    onSelect = {})
+                BottomNavigationItem(
+                    icon = { Icon(asset = Icons.Default.Favorite)},
+                    label = { Text(text = "Tab".toUpperCase()) },
+                    selected = false,
+                    onSelect = {})
+                BottomNavigationItem(
+                    icon = { Icon(asset = Icons.Default.Settings)},
+                    label = { Text(text = "Tab".toUpperCase()) },
+                    selected = false,
+                    onSelect = {})
+            }
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            BottomNavigation(modifier = Modifier.preferredHeight(48.dp)) {
+                BottomNavigationItem(
+                    icon = { Icon(asset = Icons.Default.Notifications)},
+                    selected = true,
+                    onSelect = {})
+                BottomNavigationItem(
+                    icon = { Icon(asset = Icons.Default.Notifications)},
+                    selected = false,
+                    onSelect = {})
+                BottomNavigationItem(
+                    icon = { Icon(asset = Icons.Default.Notifications)},
+                    selected = false,
+                    onSelect = {})
+            }
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            // TODO: Three lines allowed at certain widths
+            // TODO: Not clear how to colorize Action slot
+            Snackbar(
+                text = { Text("Two lines with one action. One to two lines is preferable on mobile")},
+                action = { Text(text = "Action".toUpperCase(), color = SnackbarConstants.defaultActionPrimaryColor) },
+            )
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            Row(
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .preferredHeight(242.dp)
+            ) {
+                // TODO: Wonder if this Card layout should be a template?
+                Card(modifier = Modifier.weight(1f)) {
+                    Column {
+                        Column(modifier = Modifier.background(color = Color(0x0fff00ff))) {
+                            Image(
+                                asset = vectorResource(id = R.drawable.ic_blank_avatar),
+                                modifier = Modifier
+                                        .preferredHeight(172.dp)
+                                        .fillMaxWidth()
+                                        .background(color = Color(0xffe6e6e6))
+                            )
+                        }
+                        Divider(modifier = Modifier.preferredHeight(1.dp))
+                        Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 11.dp)) {
+                            Text(text = "Headline 6", style = MaterialTheme.typography.h6)
+                            Text(text = "Body 2", style = MaterialTheme.typography.body2)
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.preferredWidth(16.dp))
+                Card(modifier = Modifier.weight(1f)) {
+                    Stack {
+                        Column {
+                            Image(
+                                asset = vectorResource(id = R.drawable.ic_blank_avatar),
+                                modifier = Modifier
+                                        .preferredHeight(172.dp)
+                                        .fillMaxWidth()
+                                        .background(color = Color(0xffe6e6e6))
+                            )
+                            Divider(modifier = Modifier.preferredHeight(1.dp))
+                            Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 11.dp)) {
+                                Text(text = "Headline 6", style = MaterialTheme.typography.h6)
+                                Text(text = "Body 2", style = MaterialTheme.typography.body2)
+                            }
+                        }
+                        // TODO: Need to create state overlay by hand?
+                        ConstraintLayout(
+                            modifier = Modifier
+                                    .fillMaxSize()
+                                    .background(color = MaterialTheme.colors.primary.copy(alpha = 0.08f))
+                        ) {
+                            val (icon) = createRefs()
+
+                            Icon(
+                                asset = Icons.Default.CheckCircle,
+                                tint = MaterialTheme.colors.primary,
+                                modifier = Modifier.constrainAs(icon) {
+                                    top.linkTo(parent.top, margin = 8.dp)
+                                    end.linkTo(parent.end, margin = 8.dp)
+                                }
+                            )
+                        }
+                    }
+                }
+
+                // TODO: Need Banner components
+            }
+        }
     }
 }
 
@@ -262,9 +375,7 @@ fun FakeThreeLineListItem() {
         trailing = {
             Icon(
                 asset = vectorResource(id = R.drawable.ic_bookmark),
-                tint = EmphasisAmbient.current.medium.applyEmphasis(
-
-                        contentColor())
+                tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor())
             )
         }
     )
@@ -301,17 +412,31 @@ fun FakeStatusbar() {
 // TODO: Zoom % popup bug on rebuild still exists
 // TODO: Sometimes "preview out-of-date" banner doesn't show when it should
 // TODO: Need view option to turn of bounding boxes
+// TODO: Bounding box hover state only works when 2+ previews available
 // TODO: Add action to have mode for showing spacing between elements on hover, a la Figma/Sketch, can be done via holding Alt also
 // TODO: Interactive preview not reliable
 // TODO: Preview disappears randomly sometimes
 // TODO: Need to have graceful state when preview breaks (from errors/compiler/etc)
-// TODO: Preview looks very pixelated at anything 2000x2000 and above
+// TODO: Preview looks very pixelated at anything 2000x2000 and above, bounding boxes turn off also
 // TODO: Need MOAR docs on Modifiers - cheatsheet!
+// TODO: Incorrect parameters error is very hard to parse, especially with long signatures
+// TODO: Rebuild should not change zoom, and should try not to move viewport
+// TODO: Need our better color picker, inline with code
 
-@Preview(showBackground = true, heightDp = 1000, widthDp = 1000)
+@Preview(showBackground = true, heightDp = 1000, widthDp = 1500)
 @Composable
 fun DefaultPreview() {
     MaterialStickersheetsTheme {
         Artboard("Baseline components")
     }
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun TestPreview() {
+//    Column(modifier = Modifier
+//            .padding(32.dp)
+//            .preferredWidth(344.dp)
+//    ) {
+//    }
+//}
