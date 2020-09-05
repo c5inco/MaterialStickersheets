@@ -235,7 +235,14 @@ fun FakeStatusbar() {
     }
 }
 
-// TODO: File bug about height not filling, maxed out by something
+// TODO: File bug about height/width not filling, maxed out by something
+// TODO: Zoom % popup bug on rebuild still exists
+// TODO: Sometimes "preview out-of-date" banner doesn't show when it should
+// TODO: Need view option to turn of bounding boxes
+// TODO: Add action to have mode for showing spacing between elements on hover, a la Figma/Sketch, can be done via holding Alt also
+// TODO: Interactive preview not reliable
+// TODO: Preview disappears randomly sometimes
+// TODO: Need to have graceful state when preview breaks (from errors/compiler/etc)
 
 @Preview(showBackground = true, heightDp = 2000)
 @Composable
