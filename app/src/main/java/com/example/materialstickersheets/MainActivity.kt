@@ -11,18 +11,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.AlignmentLine
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.VectorAsset
 import androidx.compose.ui.platform.setContent
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Devices
 import androidx.ui.tooling.preview.Preview
 import com.example.materialstickersheets.ui.MaterialStickersheetsTheme
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -249,38 +248,9 @@ fun BaselineComponents() {
         ) {
             Slider(value = 0.5f, steps = 10, onValueChange = {})
             Spacer(modifier = Modifier.preferredHeight(72.dp))
-            BottomNavigation() {
-                BottomNavigationItem(
-                    icon = { Icon(asset = Icons.Default.Notifications)},
-                    label = { Text(text = "Tab".toUpperCase()) },
-                    selected = true,
-                    onSelect = {})
-                BottomNavigationItem(
-                    icon = { Icon(asset = Icons.Default.Favorite)},
-                    label = { Text(text = "Tab".toUpperCase()) },
-                    selected = false,
-                    onSelect = {})
-                BottomNavigationItem(
-                    icon = { Icon(asset = Icons.Default.Settings)},
-                    label = { Text(text = "Tab".toUpperCase()) },
-                    selected = false,
-                    onSelect = {})
-            }
+            FakeTabsIconAndText()
             Spacer(modifier = Modifier.preferredHeight(72.dp))
-            BottomNavigation(modifier = Modifier.preferredHeight(48.dp)) {
-                BottomNavigationItem(
-                    icon = { Icon(asset = Icons.Default.Notifications)},
-                    selected = true,
-                    onSelect = {})
-                BottomNavigationItem(
-                    icon = { Icon(asset = Icons.Default.Notifications)},
-                    selected = false,
-                    onSelect = {})
-                BottomNavigationItem(
-                    icon = { Icon(asset = Icons.Default.Notifications)},
-                    selected = false,
-                    onSelect = {})
-            }
+            FakeTabsIconOnly()
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             // TODO: Three lines allowed at certain widths
             // TODO: Not clear how to colorize Action slot
@@ -350,11 +320,94 @@ fun BaselineComponents() {
                     }
                 }
 
-                // TODO: Need Banner components
+                // TODO: Need Banner components (don't exist yet)
             }
+        }
+        Spacer(modifier = Modifier.preferredWidth(72.dp))
+        Column(modifier = Modifier
+                .preferredWidth(360.dp)
+                .fillMaxHeight()
+                .gravity(Alignment.CenterVertically)
+        ) {
+            FakeBottomNavIconAndText()
         }
     }
 }
+
+private enum class BottomNavTabs(
+    val title: String = "Tab",
+    val icon: VectorAsset
+) {
+    Favorites(title = "Favorites", icon = Icons.Default.Favorite),
+    Search(title = "Search", icon = Icons.Default.Search),
+    Information(title = "Information", icon = Icons.Default.Info),
+    Notification(title = "Notification", icon = Icons.Default.Notifications)
+}
+
+@Composable
+fun FakeBottomNavIconAndText() {
+    val (selectedTab, setSelectedTab) = remember { mutableStateOf(BottomNavTabs.Notification) }
+    val tabs = BottomNavTabs.values()
+
+    BottomNavigation {
+        tabs.forEach { tab ->
+            BottomNavigationItem(
+                icon = { Icon(asset = tab.icon) },
+                label = { Text(text = tab.title) },
+                selected = tab == selectedTab,
+                onSelect = { setSelectedTab(tab) })
+        }
+    }
+}
+
+private enum class Tabs(
+        val title: String = "Tab",
+        val icon: VectorAsset
+) {
+    Notification(icon = Icons.Default.Notifications),
+    Favorites(icon = Icons.Default.Favorite),
+    Settings(icon = Icons.Default.Settings),
+}
+
+@Composable
+fun FakeTabsIconAndText() {
+    val (selectedTab, setSelectedTab) = remember { mutableStateOf(0) }
+    val tabs = Tabs.values()
+
+    TabRow(
+        selectedTabIndex = selectedTab,
+        tabs = {
+            tabs.forEachIndexed { index, tab ->
+                Tab(
+                    icon = { Icon(asset = tab.icon )},
+                    text = { Text(text = tab.title.toUpperCase()) },
+                    selected = index == selectedTab,
+                    onClick = { setSelectedTab(index) }
+                )
+            }
+        }
+    )
+}
+
+@Composable
+fun FakeTabsIconOnly() {
+    val (selectedTab, setSelectedTab) = remember { mutableStateOf(0) }
+    val tabs = Tabs.values()
+
+    TabRow(
+        selectedTabIndex = selectedTab,
+        tabs = {
+            tabs.forEachIndexed { index, tab ->
+                Tab(
+                        icon = { Icon(asset = Tabs.Notification.icon )},
+                        selected = index == selectedTab,
+                        onClick = { setSelectedTab(index) }
+                )
+            }
+        }
+    )
+}
+
 
 @Composable
 fun FakeThreeLineListItem() {
@@ -366,7 +419,7 @@ fun FakeThreeLineListItem() {
             Image(
                 asset = vectorResource(id = R.drawable.ic_blank_avatar),
                 modifier = Modifier
-                        .background(Color(0xffe6e6e6))
+                        .background(Color( 0xffe6e6e6))
                         .preferredHeight(56.dp)
                         .preferredWidth(100.dp)
             )
@@ -411,8 +464,9 @@ fun FakeStatusbar() {
 // TODO: File bug about height/width not filling, maxed out by something
 // TODO: Zoom % popup bug on rebuild still exists
 // TODO: Sometimes "preview out-of-date" banner doesn't show when it should
-// TODO: Need view option to turn of bounding boxes
+// TODO: Need view option to turn off bounding boxes
 // TODO: Bounding box hover state only works when 2+ previews available
+// TODO: Bounding box hides and shows unexpectedly
 // TODO: Add action to have mode for showing spacing between elements on hover, a la Figma/Sketch, can be done via holding Alt also
 // TODO: Interactive preview not reliable
 // TODO: Preview disappears randomly sometimes
@@ -422,8 +476,9 @@ fun FakeStatusbar() {
 // TODO: Incorrect parameters error is very hard to parse, especially with long signatures
 // TODO: Rebuild should not change zoom, and should try not to move viewport
 // TODO: Need our better color picker, inline with code
+// TODO: Indentation formatting is maybe too much?
 
-@Preview(showBackground = true, heightDp = 1000, widthDp = 1500)
+@Preview(showBackground = true, heightDp = 1000, widthDp = 2000)
 @Composable
 fun DefaultPreview() {
     MaterialStickersheetsTheme {
@@ -431,12 +486,12 @@ fun DefaultPreview() {
     }
 }
 
+// TODO: fillMaxHeight fills to some arbitrary height in Preview that is not known to the user
+
 //@Preview(showBackground = true)
 //@Composable
 //fun TestPreview() {
-//    Column(modifier = Modifier
-//            .padding(32.dp)
-//            .preferredWidth(344.dp)
-//    ) {
+//    Column(modifier = Modifier.preferredWidth(360.dp)) {
+//        FakeBottomNavIconAndText()
 //    }
 //}
