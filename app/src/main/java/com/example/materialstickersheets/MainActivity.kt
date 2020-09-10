@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.RowScope.gravity
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -30,7 +29,9 @@ class MainActivity : AppCompatActivity() {
             MaterialStickersheetsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Artboard(name = "Baseline components")
+                    ScrollableColumn {
+                        Artboard(name = "Baseline components")
+                    }
                 }
             }
         }
@@ -73,7 +74,7 @@ fun BaselineComponents() {
         Column(modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
-                .gravity(Alignment.CenterVertically) // TODO: Expected this to work, but isn't
+                .gravity(Alignment.CenterVertically) // TODO: Doesn't work in Preview, but works on device
         ) {
             TopAppBar(
                 title = { Text(text ="Page title") },
@@ -183,8 +184,8 @@ fun BaselineComponents() {
         Column(modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
-                .gravity(Alignment.CenterVertically)
         ) {
+            // TODO: Error and helper text params missing from TextField components
             OutlinedTextField(
                 label = { Text("Label") },
                 value = TextFieldValue(),
@@ -244,20 +245,45 @@ fun BaselineComponents() {
         Column(modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
-                .gravity(Alignment.CenterVertically)
         ) {
-            Slider(value = 0.5f, steps = 10, onValueChange = {})
+            var sliderPos by remember { mutableStateOf(0.5f) }
+            Slider(value = sliderPos, steps = 10, onValueChange = { sliderPos = it }, valueRange = 0f..1f)
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             FakeTabsIconAndText()
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             FakeTabsIconOnly()
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             // TODO: Three lines allowed at certain widths
-            // TODO: Not clear how to colorize Action slot
+            // TODO: Not clear if Action slot is using accent color by default
             Snackbar(
                 text = { Text("Two lines with one action. One to two lines is preferable on mobile")},
                 action = { Text(text = "Action".toUpperCase(), color = SnackbarConstants.defaultActionPrimaryColor) },
             )
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            /*
+            val iconButton = @Composable {
+                IconButton(onClick = {}) {
+                    Icon(Icons.Default.MoreVert)
+                }
+            }
+            DropdownMenu(
+                expanded = true,
+                onDismissRequest = {},
+                toggle = iconButton,
+                toggleModifier = Modifier.fillMaxHeight().wrapContentSize(Alignment.TopStart)
+            ) {
+                DropdownMenuItem(onClick = { /* Handle refresh! */ }) {
+                    Text("Refresh")
+                }
+                DropdownMenuItem(onClick = { /* Handle settings! */ }) {
+                    Text("Settings")
+                }
+                Divider()
+                DropdownMenuItem(onClick = { /* Handle send feedback! */ }) {
+                    Text("Send Feedback")
+                }
+            }
+            */
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             Row(
                 modifier = Modifier
@@ -300,23 +326,7 @@ fun BaselineComponents() {
                                 Text(text = "Body 2", style = MaterialTheme.typography.body2)
                             }
                         }
-                        // TODO: Need to create state overlay by hand?
-                        ConstraintLayout(
-                            modifier = Modifier
-                                    .fillMaxSize()
-                                    .background(color = MaterialTheme.colors.primary.copy(alpha = 0.08f))
-                        ) {
-                            val (icon) = createRefs()
-
-                            Icon(
-                                asset = Icons.Default.CheckCircle,
-                                tint = MaterialTheme.colors.primary,
-                                modifier = Modifier.constrainAs(icon) {
-                                    top.linkTo(parent.top, margin = 8.dp)
-                                    end.linkTo(parent.end, margin = 8.dp)
-                                }
-                            )
-                        }
+                        FakeStateOverlay()
                     }
                 }
 
@@ -327,8 +337,56 @@ fun BaselineComponents() {
         Column(modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
-                .gravity(Alignment.CenterVertically)
         ) {
+            // TODO: Button text is ALL CAPS in Figma stickersheet
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalGravity = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                TextButton(onClick = {}) {
+                    Text(text = "Enabled".toUpperCase())
+                }
+                OutlinedButton(onClick = {}) {
+                    Text(text = "Enabled".toUpperCase())
+                }
+                Button(onClick = {}) {
+                    Icon(asset = Icons.Default.Add)
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled".toUpperCase())
+                }
+            }
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Card(modifier = Modifier
+                        .weight(1f)
+                        .preferredHeight(98.dp)
+                ) {
+                    emptyContent()
+                }
+                Spacer(modifier = Modifier.preferredWidth(16.dp))
+                Card(modifier = Modifier
+                        .weight(1f)
+                        .preferredHeight(98.dp)
+                ) {
+                    FakeStateOverlay()
+                }
+            }
+
+            // TODO: Need Chip and ChipGroup components (don't exist yet)
+
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            Surface(
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .preferredHeight(247.dp),
+                elevation = 4.dp
+            ) {
+                emptyContent()
+            }
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
             FakeBottomNavIconAndText()
         }
     }
@@ -454,6 +512,27 @@ fun FakeRadioListItem(selected: Boolean = false) {
     )
 }
 
+// TODO: Need to create state overlay by hand?
+@Composable
+fun FakeStateOverlay() {
+    ConstraintLayout(
+        modifier = Modifier
+                .fillMaxSize()
+                .background(color = MaterialTheme.colors.primary.copy(alpha = 0.08f))
+    ) {
+        val (icon) = createRefs()
+
+        Icon(
+            asset = Icons.Default.CheckCircle,
+            tint = MaterialTheme.colors.primary,
+            modifier = Modifier.constrainAs(icon) {
+                top.linkTo(parent.top, margin = 8.dp)
+                end.linkTo(parent.end, margin = 8.dp)
+            }
+        )
+    }
+}
+
 @Composable
 fun FakeStatusbar() {
     Row(modifier = Modifier.preferredHeight(24.dp)){
@@ -462,6 +541,7 @@ fun FakeStatusbar() {
 }
 
 // TODO: File bug about height/width not filling, maxed out by something
+// TODO: fillMaxHeight fills to some arbitrary height in Preview that is not known to the user
 // TODO: Zoom % popup bug on rebuild still exists
 // TODO: Sometimes "preview out-of-date" banner doesn't show when it should
 // TODO: Need view option to turn off bounding boxes
@@ -469,6 +549,7 @@ fun FakeStatusbar() {
 // TODO: Bounding box hides and shows unexpectedly
 // TODO: Add action to have mode for showing spacing between elements on hover, a la Figma/Sketch, can be done via holding Alt also
 // TODO: Interactive preview not reliable
+// TODO: Interactive preview keeps bouncing up and down while active
 // TODO: Preview disappears randomly sometimes
 // TODO: Need to have graceful state when preview breaks (from errors/compiler/etc)
 // TODO: Preview looks very pixelated at anything 2000x2000 and above, bounding boxes turn off also
@@ -477,8 +558,9 @@ fun FakeStatusbar() {
 // TODO: Rebuild should not change zoom, and should try not to move viewport
 // TODO: Need our better color picker, inline with code
 // TODO: Indentation formatting is maybe too much?
+// TODO: Should always show scrollbars on Preview canvas (when needed, like the Editor)
 
-@Preview(showBackground = true, heightDp = 1000, widthDp = 2000)
+@Preview(showBackground = true, heightDp = 2000, widthDp = 2000)
 @Composable
 fun DefaultPreview() {
     MaterialStickersheetsTheme {
@@ -486,12 +568,24 @@ fun DefaultPreview() {
     }
 }
 
-// TODO: fillMaxHeight fills to some arbitrary height in Preview that is not known to the user
-
-//@Preview(showBackground = true)
-//@Composable
-//fun TestPreview() {
-//    Column(modifier = Modifier.preferredWidth(360.dp)) {
-//        FakeBottomNavIconAndText()
-//    }
-//}
+@Preview(showBackground = true, widthDp = 360)
+@Composable
+fun TestPreview() {
+    Row(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Card(modifier = Modifier
+                .weight(1f)
+                .preferredHeight(98.dp)
+        ) {
+            emptyContent()
+        }
+        Spacer(modifier = Modifier.preferredWidth(16.dp))
+        Card(modifier = Modifier
+                .weight(1f)
+                .preferredHeight(98.dp)
+        ) {
+            FakeStateOverlay()
+        }
+    }
+}
