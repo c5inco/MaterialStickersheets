@@ -75,7 +75,7 @@ fun BaselineComponents() {
         Column(modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
-                .gravity(Alignment.CenterVertically) // TODO: Doesn't work in Preview, but works on device
+                //.gravity(Alignment.CenterVertically) // TODO: Doesn't work in Preview, but works on device
         ) {
             TopAppBar(
                 title = { Text(text ="Page title") },
@@ -493,45 +493,50 @@ fun FakeTabsIconOnly() {
 fun FakeThreeLineListItem() {
     // TODO: Expected EmphasisAmbient call to apply medium color
     // TODO: Start padding is not present in Figma stickersheet
-    ListItem(
-        text = { Text(text = "Three-line item") },
-        icon = {
-            Image(
-                asset = vectorResource(id = R.drawable.ic_blank_avatar),
-                modifier = Modifier
-                        .background(Color( 0xffe6e6e6))
-                        .preferredHeight(56.dp)
-                        .preferredWidth(100.dp)
-            )
-        },
-        secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur ") },
-        trailing = {
-            Icon(
-                asset = vectorResource(id = R.drawable.ic_bookmark),
-                tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor())
-            )
-        }
-    )
+    Column {
+        ListItem(
+                text = { Text(text = "Three-line item") },
+                icon = {
+                    Image(
+                            asset = vectorResource(id = R.drawable.ic_blank_avatar),
+                            modifier = Modifier
+                                    .background(Color( 0xffe6e6e6))
+                                    .preferredHeight(56.dp)
+                                    .preferredWidth(100.dp)
+                    )
+                },
+                secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur ") },
+                trailing = {
+                    Icon(
+                            asset = vectorResource(id = R.drawable.ic_bookmark),
+                            tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor())
+                    )
+                }
+        )
+        Divider(startIndent = (100+20+12).dp)
+    }
 }
 
 @Composable
 fun FakeRadioListItem(selected: Boolean = false) {
-    // TODO: CircleShape clip not working??
     // TODO: RadioButton color is set to primary in Figma stickersheet
-    ListItem(
-        text = { Text(text = "Subtitle 1") },
-        icon = {
-            Image(
-                asset = vectorResource(id = R.drawable.ic_blank_avatar),
-                modifier = Modifier
-                        .background(Color(0xffe6e6e6))
-                        .preferredHeight(64.dp)
-                        .preferredWidth(64.dp)
-                        .clip(CircleShape)
-            )
-        },
-        trailing = { RadioButton(selected = selected, onClick = {}) }
-    )
+    Column {
+        ListItem(
+                text = { Text(text = "Subtitle 1") },
+                icon = {
+                    Image(
+                            asset = vectorResource(id = R.drawable.ic_blank_avatar),
+                            modifier = Modifier
+                                    .clip(CircleShape)
+                                    .background(Color(0xffe6e6e6))
+                                    .preferredHeight(40.dp)
+                                    .preferredWidth(40.dp)
+                    )
+                },
+                trailing = { RadioButton(selected = selected, onClick = {}) }
+        )
+        Divider(startIndent = (40+16+16).dp)
+    }
 }
 
 // TODO: Need to create state overlay by hand?
