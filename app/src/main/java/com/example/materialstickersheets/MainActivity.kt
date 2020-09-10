@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             MaterialStickersheetsTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
+                Surface {
                     ScrollableColumn {
                         Artboard(name = "Baseline components")
                     }
@@ -47,10 +47,9 @@ fun Greeting(name: String) {
 @Composable
 fun Artboard(name: String) {
     Surface(
-        color = Color(0xff00ff),
-        modifier = Modifier.padding(60.dp)
+        color = Color(0xfff9f9f9),
     ) {
-        Column {
+        Column(modifier = Modifier.padding(60.dp)) {
             Text(text = "Material Design", style = MaterialTheme.typography.h6)
             Spacer(modifier = Modifier.preferredHeight(16.dp))
             Text(text = name, style = MaterialTheme.typography.h3)
@@ -157,16 +156,21 @@ fun BaselineComponents() {
             */
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             Column {
+                // TODO: Had to manually draw Dividers and bottom spacing
                 ListItem(
                     text = { Text(text = "Subtitle 1") },
                     secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.") },
                     trailing = { Text(text = "01") }
                 )
+                Spacer(modifier = Modifier.preferredHeight(12.dp))
+                Divider()
                 ListItem(
                     text = { Text(text = "Subtitle 2") },
                     secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.") },
                     trailing = { Text(text = "02") }
                 )
+                Spacer(modifier = Modifier.preferredHeight(12.dp))
+                Divider()
             }
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             Column {
@@ -493,6 +497,8 @@ fun FakeTabsIconOnly() {
 fun FakeThreeLineListItem() {
     // TODO: Expected EmphasisAmbient call to apply medium color
     // TODO: Start padding is not present in Figma stickersheet
+    // TODO: Have to draw Dividers manually, might be better to include in component
+    //      for content sizing reasons relative to startIndent
     Column {
         ListItem(
                 text = { Text(text = "Three-line item") },
@@ -673,7 +679,7 @@ fun FakeStatusbar() {
 @Composable
 fun DefaultPreview() {
     MaterialStickersheetsTheme {
-        Artboard("Baseline components")
+        Artboard(name = "Baseline components")
     }
 }
 
