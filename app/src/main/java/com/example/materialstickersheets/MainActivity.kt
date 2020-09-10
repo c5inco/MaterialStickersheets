@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.RowScope.weight
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -12,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.VectorAsset
 import androidx.compose.ui.platform.setContent
@@ -338,23 +341,14 @@ fun BaselineComponents() {
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
         ) {
-            // TODO: Button text is ALL CAPS in Figma stickersheet
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalGravity = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .preferredHeight(190.dp)
             ) {
-                TextButton(onClick = {}) {
-                    Text(text = "Enabled".toUpperCase())
-                }
-                OutlinedButton(onClick = {}) {
-                    Text(text = "Enabled".toUpperCase())
-                }
-                Button(onClick = {}) {
-                    Icon(asset = Icons.Default.Add)
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
-                    Text(text = "Enabled".toUpperCase())
-                }
+                ConversionCard()
+                Spacer(modifier = Modifier.preferredWidth(24.dp))
+                ConversionCard(activeState = true)
             }
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             Row(
@@ -376,6 +370,26 @@ fun BaselineComponents() {
             }
 
             // TODO: Need Chip and ChipGroup components (don't exist yet)
+
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalGravity = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                // TODO: Button text is ALL CAPS in Figma stickersheet
+                TextButton(onClick = {}) {
+                    Text(text = "Enabled".toUpperCase())
+                }
+                OutlinedButton(onClick = {}) {
+                    Text(text = "Enabled".toUpperCase())
+                }
+                Button(onClick = {}) {
+                    Icon(asset = Icons.Default.Add)
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled".toUpperCase())
+                }
+            }
 
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             Surface(
@@ -534,11 +548,56 @@ fun FakeStateOverlay() {
 }
 
 @Composable
+fun ConversionCard(activeState: Boolean = false) {
+    Card(modifier = Modifier
+            .weight(1f)
+    ) {
+        Stack {
+            Column(modifier = Modifier.padding(16.dp)) {
+                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                    Text(text = "Conversion")
+                }
+                Spacer(modifier = Modifier.preferredHeightIn(12.dp))
+                Text(text = "537", style = MaterialTheme.typography.h4)
+                Spacer(modifier = Modifier.preferredHeightIn(6.dp))
+                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                    Text(text = "+22% of target", style = MaterialTheme.typography.body2)
+                }
+                Spacer(modifier = Modifier.preferredHeightIn(8.dp))
+
+                val barValues = floatArrayOf(0.2f, 0.3f, 0.4f, 0.5f, 1f, 0.8f, 0.5f)
+                val maxBarHeight = 44f
+
+                Row(
+                        horizontalArrangement = Arrangement.spacedBy(2.dp),
+                        verticalGravity = Alignment.Bottom
+                ) {
+                    barValues.forEach { value ->
+                        // TODO: Expected clip mo  difier to go after background
+                        Column(modifier = Modifier
+                                .clip(RoundedCornerShape(topLeft = 2.dp, topRight = 2.dp))
+                                .background(MaterialTheme.colors.primary)
+                                .preferredHeight((maxBarHeight * value).dp)
+                                .weight(1f)
+                        ) {}
+                    }
+                }
+            }
+            if (activeState) {
+                FakeStateOverlay()
+            }
+        }
+    }
+}
+
+@Composable
 fun FakeStatusbar() {
     Row(modifier = Modifier.preferredHeight(24.dp)){
 
     }
 }
+
+// TODO: When working with Modifiers, move statement up/down keyboard shortcut doesn't always work
 
 // TODO: File bug about height/width not filling, maxed out by something
 // TODO: fillMaxHeight fills to some arbitrary height in Preview that is not known to the user
@@ -559,6 +618,8 @@ fun FakeStatusbar() {
 // TODO: Need our better color picker, inline with code
 // TODO: Indentation formatting is maybe too much?
 // TODO: Should always show scrollbars on Preview canvas (when needed, like the Editor)
+// TODO: Pan not working sometimes
+// TODO: Zoom should zoom from center, not top left
 
 @Preview(showBackground = true, heightDp = 2000, widthDp = 2000)
 @Composable
@@ -572,20 +633,12 @@ fun DefaultPreview() {
 @Composable
 fun TestPreview() {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+                .fillMaxWidth()
+                .preferredHeight(190.dp)
     ) {
-        Card(modifier = Modifier
-                .weight(1f)
-                .preferredHeight(98.dp)
-        ) {
-            emptyContent()
-        }
-        Spacer(modifier = Modifier.preferredWidth(16.dp))
-        Card(modifier = Modifier
-                .weight(1f)
-                .preferredHeight(98.dp)
-        ) {
-            FakeStateOverlay()
-        }
+        ConversionCard()
+        Spacer(modifier = Modifier.preferredWidth(24.dp))
+        ConversionCard(activeState = true)
     }
 }
