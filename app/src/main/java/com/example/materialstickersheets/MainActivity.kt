@@ -14,7 +14,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.VectorAsset
 import androidx.compose.ui.platform.setContent
@@ -23,7 +22,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.example.materialstickersheets.ui.MaterialStickersheetsTheme
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -348,7 +346,7 @@ fun BaselineComponents() {
             ) {
                 ConversionCard()
                 Spacer(modifier = Modifier.preferredWidth(24.dp))
-                ConversionCard(activeState = true)
+                ConversionCard(active = true)
             }
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             Row(
@@ -367,6 +365,16 @@ fun BaselineComponents() {
                 ) {
                     FakeStateOverlay()
                 }
+            }
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            Row(
+                modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
+            ) {
+                ImageListItem()
+                Spacer(modifier = Modifier.preferredWidth(16.dp))
+                ImageListItem(active = true)
             }
 
             // TODO: Need Chip and ChipGroup components (don't exist yet)
@@ -548,7 +556,7 @@ fun FakeStateOverlay() {
 }
 
 @Composable
-fun ConversionCard(activeState: Boolean = false) {
+fun ConversionCard(active: Boolean = false) {
     Card(modifier = Modifier
             .weight(1f)
     ) {
@@ -583,9 +591,44 @@ fun ConversionCard(activeState: Boolean = false) {
                     }
                 }
             }
-            if (activeState) {
+            if (active) {
                 FakeStateOverlay()
             }
+        }
+    }
+}
+
+// TODO: Quick re-implementation of ImageListItem
+@Composable
+fun ImageListItem(active: Boolean = false) {
+    Stack(modifier = Modifier
+            .preferredHeight(207.dp)
+            .weight(1f)
+    ) {
+        Image(
+            asset = vectorResource(id = R.drawable.ic_blank_avatar),
+            modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = Color(0xffe6e6e6))
+        )
+
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                        .background(color = Color.Black.copy(alpha = 0.38f))
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .fillMaxWidth()
+            ) {
+                Text(text = "Subtitle 1", style = MaterialTheme.typography.subtitle1)
+                Icon(asset = Icons.Default.Favorite)
+            }
+        }
+        if (active) {
+            FakeStateOverlay()
         }
     }
 }
@@ -634,11 +677,11 @@ fun DefaultPreview() {
 fun TestPreview() {
     Row(
         modifier = Modifier
+                .padding(16.dp)
                 .fillMaxWidth()
-                .preferredHeight(190.dp)
     ) {
-        ConversionCard()
-        Spacer(modifier = Modifier.preferredWidth(24.dp))
-        ConversionCard(activeState = true)
+        ImageListItem()
+        Spacer(modifier = Modifier.preferredWidth(16.dp))
+        ImageListItem(active = true)
     }
 }
