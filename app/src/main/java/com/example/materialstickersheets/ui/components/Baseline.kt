@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.VectorAsset
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.TextFieldValue
@@ -255,11 +256,17 @@ fun BaselineComponents() {
                 }
             }
             */
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                FakeMenu()
+            }
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             Row(
-                    modifier = Modifier
-                            .fillMaxWidth()
-                            .preferredHeight(242.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .preferredHeight(242.dp)
             ) {
                 // TODO: Wonder if this Card layout should be a template?
                 Card(modifier = Modifier.weight(1f)) {
@@ -611,6 +618,46 @@ fun FakeBottomSheetItem(active: Boolean = false) {
     }
 }
 
+// TODO: Quick re-implementation of Menu component
+@Composable
+fun FakeMenu() {
+    Surface(
+        modifier = Modifier.preferredWidth(280.dp),
+        shape = RoundedCornerShape(4.dp),
+        elevation = 8.dp
+    ) {
+        Column(modifier = Modifier
+            .padding(vertical = 8.dp)
+            .fillMaxWidth()
+        ) {
+            FakeMenuItem()
+            FakeMenuItem()
+            FakeMenuItem()
+        }
+    }
+}
+
+@Composable
+fun FakeMenuItem() {
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalGravity = Alignment.CenterVertically,
+        modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .preferredHeight(48.dp)
+                .fillMaxWidth()
+    ) {
+        Text(
+            text = "Subtitle 2",
+            style = MaterialTheme.typography.subtitle2,
+            modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 32.dp)
+        )
+        Icon(asset = Icons.Default.Favorite)
+    }
+}
+
 // TODO: Quick re-implementation of ImageListItem
 @Composable
 fun ImageListItem(active: Boolean = false) {
@@ -650,7 +697,9 @@ fun ImageListItem(active: Boolean = false) {
 @Composable
 fun PrototypingPreview() {
     MaterialStickersheetsTheme {
-        FakeBottomSheet()
+        Row(horizontalArrangement = Arrangement.Center) {
+            FakeMenu()
+        }
     }
 }
 
