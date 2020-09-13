@@ -82,6 +82,16 @@ fun BaselineComponents() {
             ) {
 
             }
+
+            // TODO: Replace with real AlertDialog is easier to show without savedInstantState
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                FakeAlertDialog()
+            }
+
             /*
             // TODO: Removing for now - doesn't work in preview since showDialog is in savedInstanceState
             Spacer(modifier = Modifier.preferredHeight(72.dp))
@@ -626,9 +636,9 @@ private fun FakeBottomSheetItem(active: Boolean = false) {
 @Composable
 fun FakeMenu() {
     Surface(
-        modifier = Modifier.preferredWidth(280.dp),
         shape = RoundedCornerShape(4.dp),
-        elevation = 8.dp
+        elevation = 8.dp,
+        modifier = Modifier.preferredWidth(280.dp)
     ) {
         Column(modifier = Modifier
             .padding(vertical = 8.dp)
@@ -659,6 +669,49 @@ private fun FakeMenuItem() {
                     .padding(end = 32.dp)
         )
         Icon(asset = Icons.Default.Favorite)
+    }
+}
+
+// TODO: Quick re-implementation of AlertDialog to display freely
+
+@Composable
+fun FakeAlertDialog() {
+    Surface(
+        shape = RoundedCornerShape(4.dp),
+        elevation = 24.dp,
+        modifier = Modifier.preferredWidth(280.dp)
+    ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Column(
+                modifier = Modifier
+                        .padding(start = 24.dp, end = 24.dp, top = 20.dp)
+                        .fillMaxWidth()
+            ){
+                Text(text = "Headline 6", style = MaterialTheme.typography.h6)
+                Spacer(modifier = Modifier.preferredHeight(16.dp))
+                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                    Text(
+                        text = "Subtitle 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                        style = MaterialTheme.typography.subtitle1
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.preferredHeight(28.dp))
+            Row(
+                horizontalArrangement = Arrangement.End,
+                modifier = Modifier
+                        .padding(top = 8.dp, bottom = 8.dp, end = 8.dp)
+                        .fillMaxWidth()
+            )
+            {
+                TextButton(onClick = {}) {
+                    Text(text = "Button".toUpperCase())
+                }
+                TextButton(onClick = {}) {
+                    Text(text = "Button".toUpperCase())
+                }
+            }
+        }
     }
 }
 
@@ -776,11 +829,7 @@ fun ImageListItem(active: Boolean = false) {
 @Preview(showBackground = true, widthDp = 360)
 @Composable
 fun PrototypingPreview() {
-    Column {
-        FakeSimpleBanner()
-        Spacer(modifier = Modifier.preferredHeight(32.dp))
-        FakeFullBanner()
-    }
+    FakeAlertDialog()
 }
 
 @Preview(showBackground = true, heightDp = 2800, widthDp = 1782, name = "Material Theme")
