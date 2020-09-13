@@ -307,9 +307,13 @@ fun BaselineComponents() {
                         FakeStateOverlay()
                     }
                 }
-
-                // TODO: Need Banner components (don't exist yet)
             }
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
+            // TODO: Replace with Banner components (don't exist yet)
+            FakeSimpleBanner()
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            FakeFullBanner()
         }
         Spacer(modifier = Modifier.preferredWidth(72.dp))
         Column(modifier = Modifier
@@ -601,7 +605,7 @@ fun FakeBottomSheet() {
 }
 
 @Composable
-fun FakeBottomSheetItem(active: Boolean = false) {
+private fun FakeBottomSheetItem(active: Boolean = false) {
     val currentTint = if(active) MaterialTheme.colors.primary else EmphasisAmbient.current.medium.applyEmphasis(contentColor())
     val currentModifier = if (active) Modifier.background(color = MaterialTheme.colors.primary.copy(alpha = 0.08f)) else Modifier
 
@@ -638,7 +642,7 @@ fun FakeMenu() {
 }
 
 @Composable
-fun FakeMenuItem() {
+private fun FakeMenuItem() {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalGravity = Alignment.CenterVertically,
@@ -655,6 +659,82 @@ fun FakeMenuItem() {
                     .padding(end = 32.dp)
         )
         Icon(asset = Icons.Default.Favorite)
+    }
+}
+
+// TODO: Quick re-implementation of Banner component
+
+@Composable
+fun FakeSimpleBanner() {
+    Surface(
+        elevation = 0.dp,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                verticalGravity = Alignment.CenterVertically,
+                modifier = Modifier
+                        .padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 8.dp)
+                        .fillMaxWidth()
+            ) {
+                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                    Text(
+                            text = "One line text string with one action",
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.body2
+                    )
+                }
+                Spacer(modifier = Modifier.preferredWidth(36.dp))
+                TextButton(onClick = {}) {
+                    Text(text = "Action".toUpperCase())
+                }
+            }
+            Divider()
+        }
+    }
+}
+
+@Composable
+fun FakeFullBanner() {
+    // TODO: No linting or build error for passing more than one child to Surface, results in runtime-error
+    // TODO: Surface error above results in broken preview
+    Surface(
+        elevation = 0.dp,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                    verticalGravity = Alignment.CenterVertically,
+                    modifier = Modifier
+                            .padding(start = 16.dp, top = 16.dp, bottom = 12.dp, end = 16.dp)
+                            .fillMaxWidth()
+            ){
+                MockImage(modifier = Modifier.clip(CircleShape).preferredSize(40.dp))
+                Spacer(modifier = Modifier.preferredWidth(16.dp))
+                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                    Text(
+                            text = "Two line text string with two actions. One to two lines is preferable on mobile",
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.body2
+                    )
+                }
+            }
+            Row(
+                    horizontalArrangement = Arrangement.End,
+                    modifier = Modifier
+                            .padding(bottom = 8.dp, end = 8.dp)
+                            .fillMaxWidth()
+            )
+            {
+                TextButton(onClick = {}) {
+                    Text(text = "Action".toUpperCase())
+                }
+                TextButton(onClick = {}) {
+                    Text(text = "Action".toUpperCase())
+                }
+            }
+            Divider()
+        }
     }
 }
 
@@ -696,10 +776,10 @@ fun ImageListItem(active: Boolean = false) {
 @Preview(showBackground = true, widthDp = 360)
 @Composable
 fun PrototypingPreview() {
-    MaterialStickersheetsTheme {
-        Row(horizontalArrangement = Arrangement.Center) {
-            FakeMenu()
-        }
+    Column {
+        FakeSimpleBanner()
+        Spacer(modifier = Modifier.preferredHeight(32.dp))
+        FakeFullBanner()
     }
 }
 
