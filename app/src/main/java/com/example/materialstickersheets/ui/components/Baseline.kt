@@ -368,7 +368,67 @@ fun BaselineComponents() {
                 ImageListItem(active = true)
             }
 
-            // TODO: Need Chip and ChipGroup components (don't exist yet)
+            // TODO: Replace with real Chip and ChipGroup when components exist
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                FakeChip(selected = true) {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    MockImage(modifier = Modifier
+                            .clip(CircleShape)
+                            .preferredSize(18.dp)
+                    )
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+                FakeChip {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+                FakeChip {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    MockImage(modifier = Modifier
+                            .clip(CircleShape)
+                            .preferredSize(18.dp)
+                    )
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+            }
+            Spacer(modifier = Modifier.preferredHeight(8.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                FakeChip(selected = true) {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    MockImage(modifier = Modifier
+                            .clip(CircleShape)
+                            .preferredSize(18.dp)
+                    )
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+                FakeChip {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+                FakeChip {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    MockImage(modifier = Modifier
+                            .clip(CircleShape)
+                            .preferredSize(18.dp)
+                    )
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+            }
 
             Spacer(modifier = Modifier.preferredHeight(72.dp))
             Row(
@@ -529,6 +589,38 @@ fun FakeRadioListItem(selected: Boolean = false) {
                 trailing = { RadioButton(selected = selected, onClick = {}) }
         )
         Divider(startIndent = (40+16+16).dp)
+    }
+}
+
+// TODO: Quick re-implementation of Chip
+
+@Composable
+fun FakeChip(
+    selected: Boolean = false,
+    content: @Composable () -> Unit
+) {
+    Surface(
+        color = Color(0xff232f34).copy(alpha = 0.12f),
+        elevation = 0.dp,
+        modifier = Modifier
+                .clip(RoundedCornerShape(percent = 50))
+                .preferredHeight(32.dp)
+                .wrapContentWidth()
+    ) {
+        Row(verticalGravity = Alignment.CenterVertically) {
+            Row(verticalGravity = Alignment.CenterVertically) {
+                content()
+                Spacer(modifier = if (selected) Modifier.preferredWidth(8.dp) else Modifier.preferredWidth(12.dp))
+            }
+            if (selected) {
+                Icon(
+                    asset = vectorResource(id = R.drawable.ic_cancel),
+                    modifier = Modifier.preferredSize(18.dp),
+                    tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor())
+                )
+                Spacer(modifier = Modifier.preferredWidth(8.dp))
+            }
+        }
     }
 }
 
@@ -829,7 +921,35 @@ fun ImageListItem(active: Boolean = false) {
 @Preview(showBackground = true, widthDp = 360)
 @Composable
 fun PrototypingPreview() {
-    FakeAlertDialog()
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        FakeChip(selected = true) {
+            Spacer(modifier = Modifier.preferredWidth(6.dp))
+            MockImage(modifier = Modifier
+                .clip(CircleShape)
+                .preferredSize(18.dp)
+            )
+            Spacer(modifier = Modifier.preferredWidth(8.dp))
+            Text(text = "Enabled")
+        }
+        FakeChip {
+            Spacer(modifier = Modifier.preferredWidth(6.dp))
+            Icon(asset = vectorResource(id = R.drawable.ic_directions_bike), modifier = Modifier.preferredSize(18.dp))
+            Spacer(modifier = Modifier.preferredWidth(8.dp))
+            Text(text = "Enabled")
+        }
+        FakeChip {
+            Spacer(modifier = Modifier.preferredWidth(6.dp))
+            MockImage(modifier = Modifier
+                    .clip(CircleShape)
+                    .preferredSize(18.dp)
+            )
+            Spacer(modifier = Modifier.preferredWidth(8.dp))
+            Text(text = "Enabled")
+        }
+    }
 }
 
 @Preview(showBackground = true, heightDp = 2800, widthDp = 1782, name = "Material Theme")
