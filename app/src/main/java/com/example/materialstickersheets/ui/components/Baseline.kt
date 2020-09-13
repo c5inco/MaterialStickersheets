@@ -1,7 +1,5 @@
 package com.example.materialstickersheets.ui.components
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.RowScope.weight
@@ -15,13 +13,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.VectorAsset
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
-import com.example.materialstickersheets.Artboard
 import com.example.materialstickersheets.R
 import com.example.materialstickersheets.ui.MaterialStickersheetsTheme
 
@@ -59,7 +55,7 @@ fun BaselineComponents() {
             Scaffold(
                 modifier = Modifier.preferredHeight(84.dp),
                 bottomBar = {
-                    BottomAppBar() {
+                    BottomAppBar {
                         Row {
                             // TODO: Icons are high emphasis, not medium like in Figma
                             ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
@@ -90,7 +86,7 @@ fun BaselineComponents() {
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                FakeAlertDialog()
+                MockAlertDialog()
             }
 
             /*
@@ -149,15 +145,15 @@ fun BaselineComponents() {
             }
 
             Column {
-                FakeRadioListItem(selected = true)
-                FakeRadioListItem()
-                FakeRadioListItem()
+                RadioListItem(selected = true)
+                RadioListItem()
+                RadioListItem()
             }
 
             Column {
-                FakeThreeLineListItem()
-                FakeThreeLineListItem()
-                FakeThreeLineListItem()
+                MockThreeLineListItem()
+                MockThreeLineListItem()
+                MockThreeLineListItem()
             }
         }
         Column(
@@ -166,60 +162,60 @@ fun BaselineComponents() {
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
         ) {
-            FakeBottomSheet()
+            MockBottomSheet()
 
             // TODO: Error and helper text params missing from TextField components
             OutlinedTextField(
-                    label = { Text("Label") },
-                    value = TextFieldValue(),
-                    onValueChange = {},
-                    modifier = Modifier.fillMaxWidth()
+                label = { Text("Label") },
+                value = TextFieldValue(),
+                onValueChange = {},
+                modifier = Modifier.fillMaxWidth()
             )
 
             OutlinedTextField(
-                    label = { Text("Label") },
-                    value = TextFieldValue(text = "Input text"),
-                    onValueChange = {},
-                    modifier = Modifier.fillMaxWidth()
+                label = { Text("Label") },
+                value = TextFieldValue(text = "Input text"),
+                onValueChange = {},
+                modifier = Modifier.fillMaxWidth()
             )
 
             TextField(
-                    label = { Text("Label") },
-                    leadingIcon = {
-                        Icon(asset = Icons.Default.Favorite)
-                    },
-                    trailingIcon = {
-                        Icon(asset = vectorResource(id = R.drawable.ic_visibility))
-                    },
-                    value = TextFieldValue(),
-                    onValueChange = {},
-                    modifier = Modifier.fillMaxWidth()
+                label = { Text("Label") },
+                leadingIcon = {
+                    Icon(asset = Icons.Default.Favorite)
+                },
+                trailingIcon = {
+                    Icon(asset = vectorResource(id = R.drawable.ic_visibility))
+                },
+                value = TextFieldValue(),
+                onValueChange = {},
+                modifier = Modifier.fillMaxWidth()
             )
 
             TextField(
-                    label = { Text("Label") },
-                    leadingIcon = {
-                        Icon(asset = Icons.Default.Favorite)
-                    },
-                    trailingIcon = {
-                        Icon(asset = vectorResource(id = R.drawable.ic_visibility))
-                    },
-                    value = TextFieldValue(text = "Input text"),
-                    onValueChange = {},
-                    modifier = Modifier.fillMaxWidth()
+                label = { Text("Label") },
+                leadingIcon = {
+                    Icon(asset = Icons.Default.Favorite)
+                },
+                trailingIcon = {
+                    Icon(asset = vectorResource(id = R.drawable.ic_visibility))
+                },
+                value = TextFieldValue(text = "Input text"),
+                onValueChange = {},
+                modifier = Modifier.fillMaxWidth()
             )
 
             Row(
-                    verticalGravity = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
+                verticalGravity = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
                 Slider(
-                        value = 0.3f,
-                        onValueChange = {},
-                        modifier = Modifier
-                                .weight(1.0f)
-                                .padding(horizontal = 16.dp)
+                    value = 0.3f,
+                    onValueChange = {},
+                    modifier = Modifier
+                            .weight(1.0f)
+                            .padding(horizontal = 16.dp)
                 )
                 Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
             }
@@ -232,8 +228,8 @@ fun BaselineComponents() {
         ) {
             var sliderPos by remember { mutableStateOf(0.5f) }
             Slider(value = sliderPos, steps = 10, onValueChange = { sliderPos = it }, valueRange = 0f..1f)
-            FakeTabsIconAndText()
-            FakeTabsIconOnly()
+            TabsIconAndText()
+            TabsIconOnly()
 
             // TODO: Three lines allowed at certain widths
             // TODO: Not clear if Action slot is using accent color by default
@@ -269,10 +265,9 @@ fun BaselineComponents() {
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                FakeMenu()
+                MockMenu()
             }
-            Row(
-                modifier = Modifier
+            Row(modifier = Modifier
                         .fillMaxWidth()
                         .preferredHeight(242.dp)
             ) {
@@ -306,14 +301,14 @@ fun BaselineComponents() {
                                 Text(text = "Body 2", style = MaterialTheme.typography.body2)
                             }
                         }
-                        FakeStateOverlay()
+                        MockStateOverlay()
                     }
                 }
             }
 
             // TODO: Replace with Banner components (don't exist yet)
-            FakeSimpleBanner()
-            FakeFullBanner()
+            MockSimpleBanner()
+            MockFullBanner()
         }
         Column(
             verticalArrangement = Arrangement.spacedBy(72.dp),
@@ -345,7 +340,7 @@ fun BaselineComponents() {
                         .weight(1f)
                         .preferredHeight(98.dp)
                 ) {
-                    FakeStateOverlay()
+                    MockStateOverlay()
                 }
             }
 
@@ -353,9 +348,9 @@ fun BaselineComponents() {
                     .padding(16.dp)
                     .fillMaxWidth()
             ) {
-                ImageListItem()
+                MockImageListItem()
                 Spacer(modifier = Modifier.preferredWidth(16.dp))
-                ImageListItem(active = true)
+                MockImageListItem(active = true)
             }
 
             // TODO: Replace with real Chip and ChipGroup when components exist
@@ -364,7 +359,7 @@ fun BaselineComponents() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    FakeChip(selected = true) {
+                    MockChip(selected = true) {
                         Spacer(modifier = Modifier.preferredWidth(6.dp))
                         MockImage(modifier = Modifier
                                 .clip(CircleShape)
@@ -373,13 +368,13 @@ fun BaselineComponents() {
                         Spacer(modifier = Modifier.preferredWidth(8.dp))
                         Text(text = "Enabled")
                     }
-                    FakeChip {
+                    MockChip {
                         Spacer(modifier = Modifier.preferredWidth(6.dp))
                         Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
                         Spacer(modifier = Modifier.preferredWidth(8.dp))
                         Text(text = "Enabled")
                     }
-                    FakeChip {
+                    MockChip {
                         Spacer(modifier = Modifier.preferredWidth(6.dp))
                         MockImage(modifier = Modifier
                                 .clip(CircleShape)
@@ -394,7 +389,7 @@ fun BaselineComponents() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    FakeChip(selected = true) {
+                    MockChip(selected = true) {
                         Spacer(modifier = Modifier.preferredWidth(6.dp))
                         MockImage(modifier = Modifier
                                 .clip(CircleShape)
@@ -403,13 +398,13 @@ fun BaselineComponents() {
                         Spacer(modifier = Modifier.preferredWidth(8.dp))
                         Text(text = "Enabled")
                     }
-                    FakeChip {
+                    MockChip {
                         Spacer(modifier = Modifier.preferredWidth(6.dp))
                         Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
                         Spacer(modifier = Modifier.preferredWidth(8.dp))
                         Text(text = "Enabled")
                     }
-                    FakeChip {
+                    MockChip {
                         Spacer(modifier = Modifier.preferredWidth(6.dp))
                         MockImage(modifier = Modifier
                                 .clip(CircleShape)
@@ -449,7 +444,7 @@ fun BaselineComponents() {
                 emptyContent()
             }
 
-            FakeBottomNavIconAndText()
+            BottomNavIconAndText()
         }
     }
 }
@@ -465,17 +460,18 @@ private enum class BottomNavTabs(
 }
 
 @Composable
-fun FakeBottomNavIconAndText() {
+fun BottomNavIconAndText() {
     val (selectedTab, setSelectedTab) = remember { mutableStateOf(BottomNavTabs.Notification) }
     val tabs = BottomNavTabs.values()
 
     BottomNavigation {
         tabs.forEach { tab ->
             BottomNavigationItem(
-                    icon = { Icon(asset = tab.icon) },
-                    label = { Text(text = tab.title) },
-                    selected = tab == selectedTab,
-                    onSelect = { setSelectedTab(tab) })
+                icon = { Icon(asset = tab.icon) },
+                label = { Text(text = tab.title) },
+                selected = tab == selectedTab,
+                onSelect = { setSelectedTab(tab) }
+            )
         }
     }
 }
@@ -490,74 +486,74 @@ private enum class Tabs(
 }
 
 @Composable
-fun FakeTabsIconAndText() {
+fun TabsIconAndText() {
     val (selectedTab, setSelectedTab) = remember { mutableStateOf(0) }
     val tabs = Tabs.values()
 
     TabRow(
-            selectedTabIndex = selectedTab,
-            tabs = {
-                tabs.forEachIndexed { index, tab ->
-                    Tab(
-                            icon = { Icon(asset = tab.icon ) },
-                            text = { Text(text = tab.title.toUpperCase()) },
-                            selected = index == selectedTab,
-                            onClick = { setSelectedTab(index) }
-                    )
-                }
+        selectedTabIndex = selectedTab,
+        tabs = {
+            tabs.forEachIndexed { index, tab ->
+                Tab(
+                    icon = { Icon(asset = tab.icon ) },
+                    text = { Text(text = tab.title.toUpperCase()) },
+                    selected = index == selectedTab,
+                    onClick = { setSelectedTab(index) }
+                )
             }
+        }
     )
 }
 
 @Composable
-fun FakeTabsIconOnly() {
+fun TabsIconOnly() {
     val (selectedTab, setSelectedTab) = remember { mutableStateOf(0) }
     val tabs = Tabs.values()
 
     TabRow(
-            selectedTabIndex = selectedTab,
-            tabs = {
-                tabs.forEachIndexed { index, tab ->
-                    Tab(
-                            icon = { Icon(asset = Tabs.Notification.icon ) },
-                            selected = index == selectedTab,
-                            onClick = { setSelectedTab(index) }
-                    )
-                }
+        selectedTabIndex = selectedTab,
+        tabs = {
+            tabs.forEachIndexed { index, tab ->
+                Tab(
+                    icon = { Icon(asset = Tabs.Notification.icon ) },
+                    selected = index == selectedTab,
+                    onClick = { setSelectedTab(index) }
+                )
             }
+        }
     )
 }
 
 
 @Composable
-fun FakeThreeLineListItem() {
+fun MockThreeLineListItem() {
     // TODO: Expected EmphasisAmbient call to apply medium color
     // TODO: Start padding is not present in Figma stickersheet
     // TODO: Have to draw Dividers manually, might be better to include in component
     //      for content sizing reasons relative to startIndent
     Column {
         ListItem(
-                text = { Text(text = "Three-line item") },
-                icon = {
-                    MockImage(modifier = Modifier
-                        .preferredHeight(56.dp)
-                        .preferredWidth(100.dp)
-                    )
-                },
-                secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur ") },
-                trailing = {
-                    Icon(
-                            asset = vectorResource(id = R.drawable.ic_bookmark),
-                            tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor())
-                    )
-                }
+            text = { Text(text = "Three-line item") },
+            icon = {
+                MockImage(modifier = Modifier
+                    .preferredHeight(56.dp)
+                    .preferredWidth(100.dp)
+                )
+            },
+            secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur ") },
+            trailing = {
+                Icon(
+                        asset = vectorResource(id = R.drawable.ic_bookmark),
+                        tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor())
+                )
+            }
         )
         Divider(startIndent = (100+20+12).dp)
     }
 }
 
 @Composable
-fun FakeRadioListItem(selected: Boolean = false) {
+fun RadioListItem(selected: Boolean = false) {
     // TODO: RadioButton color is set to primary in Figma stickersheet
     Column {
         ListItem(
@@ -577,7 +573,7 @@ fun FakeRadioListItem(selected: Boolean = false) {
 // TODO: Quick re-implementation of Chip
 
 @Composable
-fun FakeChip(
+fun MockChip(
     selected: Boolean = false,
     content: @Composable () -> Unit
 ) {
@@ -608,9 +604,7 @@ fun FakeChip(
 
 @Composable
 fun ConversionCard(active: Boolean = false) {
-    Card(modifier = Modifier
-            .weight(1f)
-    ) {
+    Card(modifier = Modifier.weight(1f)) {
         Stack {
             Column(modifier = Modifier.padding(16.dp)) {
                 ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
@@ -628,11 +622,11 @@ fun ConversionCard(active: Boolean = false) {
                 val maxBarHeight = 44f
 
                 Row(
-                        horizontalArrangement = Arrangement.spacedBy(2.dp),
-                        verticalGravity = Alignment.Bottom
+                    horizontalArrangement = Arrangement.spacedBy(2.dp),
+                    verticalGravity = Alignment.Bottom
                 ) {
                     barValues.forEach { value ->
-                        // TODO: Expected clip mo  difier to go after background
+                        // TODO: Expected clip modifier to go after background
                         Column(modifier = Modifier
                                 .clip(RoundedCornerShape(topLeft = 2.dp, topRight = 2.dp))
                                 .background(MaterialTheme.colors.primary)
@@ -643,7 +637,7 @@ fun ConversionCard(active: Boolean = false) {
                 }
             }
             if (active) {
-                FakeStateOverlay()
+                MockStateOverlay()
             }
         }
     }
@@ -651,7 +645,7 @@ fun ConversionCard(active: Boolean = false) {
 
 // TODO: Quick re-implementation of BottomSheet component
 @Composable
-fun FakeBottomSheet() {
+fun MockBottomSheet() {
     Column(
         verticalArrangement = Arrangement.Bottom,
         modifier = Modifier
@@ -677,11 +671,11 @@ fun FakeBottomSheet() {
                 }
                 Divider()
                 Column {
-                    FakeBottomSheetItem()
-                    FakeBottomSheetItem()
-                    FakeBottomSheetItem(active = true)
-                    FakeBottomSheetItem()
-                    FakeBottomSheetItem()
+                    MockBottomSheetItem()
+                    MockBottomSheetItem()
+                    MockBottomSheetItem(active = true)
+                    MockBottomSheetItem()
+                    MockBottomSheetItem()
                 }
             }
         }
@@ -689,7 +683,7 @@ fun FakeBottomSheet() {
 }
 
 @Composable
-private fun FakeBottomSheetItem(active: Boolean = false) {
+private fun MockBottomSheetItem(active: Boolean = false) {
     val currentTint = if(active) MaterialTheme.colors.primary else EmphasisAmbient.current.medium.applyEmphasis(contentColor())
     val currentModifier = if (active) Modifier.background(color = MaterialTheme.colors.primary.copy(alpha = 0.08f)) else Modifier
 
@@ -708,7 +702,7 @@ private fun FakeBottomSheetItem(active: Boolean = false) {
 
 // TODO: Quick re-implementation of Menu component
 @Composable
-fun FakeMenu() {
+fun MockMenu() {
     Surface(
         shape = RoundedCornerShape(4.dp),
         elevation = 8.dp,
@@ -718,15 +712,15 @@ fun FakeMenu() {
             .padding(vertical = 8.dp)
             .fillMaxWidth()
         ) {
-            FakeMenuItem()
-            FakeMenuItem()
-            FakeMenuItem()
+            MockMenuItem()
+            MockMenuItem()
+            MockMenuItem()
         }
     }
 }
 
 @Composable
-private fun FakeMenuItem() {
+private fun MockMenuItem() {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalGravity = Alignment.CenterVertically,
@@ -749,7 +743,7 @@ private fun FakeMenuItem() {
 // TODO: Quick re-implementation of AlertDialog to display freely
 
 @Composable
-fun FakeAlertDialog() {
+fun MockAlertDialog() {
     Surface(
         shape = RoundedCornerShape(4.dp),
         elevation = 24.dp,
@@ -792,7 +786,7 @@ fun FakeAlertDialog() {
 // TODO: Quick re-implementation of Banner component
 
 @Composable
-fun FakeSimpleBanner() {
+fun MockSimpleBanner() {
     Surface(
         elevation = 0.dp,
         modifier = Modifier.fillMaxWidth()
@@ -806,9 +800,9 @@ fun FakeSimpleBanner() {
             ) {
                 ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
                     Text(
-                            text = "One line text string with one action",
-                            modifier = Modifier.weight(1f),
-                            style = MaterialTheme.typography.body2
+                        text = "One line text string with one action",
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.body2
                     )
                 }
                 Spacer(modifier = Modifier.preferredWidth(36.dp))
@@ -822,7 +816,7 @@ fun FakeSimpleBanner() {
 }
 
 @Composable
-fun FakeFullBanner() {
+fun MockFullBanner() {
     // TODO: No linting or build error for passing more than one child to Surface, results in runtime-error
     // TODO: Surface error above results in broken preview
     Surface(
@@ -831,26 +825,26 @@ fun FakeFullBanner() {
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(
-                    verticalGravity = Alignment.CenterVertically,
-                    modifier = Modifier
-                            .padding(start = 16.dp, top = 16.dp, bottom = 12.dp, end = 16.dp)
-                            .fillMaxWidth()
+                verticalGravity = Alignment.CenterVertically,
+                modifier = Modifier
+                        .padding(start = 16.dp, top = 16.dp, bottom = 12.dp, end = 16.dp)
+                        .fillMaxWidth()
             ){
                 MockImage(modifier = Modifier.clip(CircleShape).preferredSize(40.dp))
                 Spacer(modifier = Modifier.preferredWidth(16.dp))
                 ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
                     Text(
-                            text = "Two line text string with two actions. One to two lines is preferable on mobile",
-                            modifier = Modifier.weight(1f),
-                            style = MaterialTheme.typography.body2
+                        text = "Two line text string with two actions. One to two lines is preferable on mobile",
+                        modifier = Modifier.weight(1f),
+                        style = MaterialTheme.typography.body2
                     )
                 }
             }
             Row(
-                    horizontalArrangement = Arrangement.End,
-                    modifier = Modifier
-                            .padding(bottom = 8.dp, end = 8.dp)
-                            .fillMaxWidth()
+                horizontalArrangement = Arrangement.End,
+                modifier = Modifier
+                        .padding(bottom = 8.dp, end = 8.dp)
+                        .fillMaxWidth()
             )
             {
                 TextButton(onClick = {}) {
@@ -867,13 +861,12 @@ fun FakeFullBanner() {
 
 // TODO: Quick re-implementation of ImageListItem
 @Composable
-fun ImageListItem(active: Boolean = false) {
+fun MockImageListItem(active: Boolean = false) {
     Stack(modifier = Modifier
             .preferredHeight(207.dp)
             .weight(1f)
     ) {
         MockImage(modifier = Modifier.fillMaxSize())
-
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Bottom
@@ -890,41 +883,7 @@ fun ImageListItem(active: Boolean = false) {
             }
         }
         if (active) {
-            FakeStateOverlay()
-        }
-    }
-}
-
-@Preview(showBackground = true, widthDp = 360)
-@Composable
-fun PrototypingPreview() {
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        FakeChip(selected = true) {
-            Spacer(modifier = Modifier.preferredWidth(6.dp))
-            MockImage(modifier = Modifier
-                .clip(CircleShape)
-                .preferredSize(18.dp)
-            )
-            Spacer(modifier = Modifier.preferredWidth(8.dp))
-            Text(text = "Enabled")
-        }
-        FakeChip {
-            Spacer(modifier = Modifier.preferredWidth(6.dp))
-            Icon(asset = vectorResource(id = R.drawable.ic_directions_bike), modifier = Modifier.preferredSize(18.dp))
-            Spacer(modifier = Modifier.preferredWidth(8.dp))
-            Text(text = "Enabled")
-        }
-        FakeChip {
-            Spacer(modifier = Modifier.preferredWidth(6.dp))
-            MockImage(modifier = Modifier
-                    .clip(CircleShape)
-                    .preferredSize(18.dp)
-            )
-            Spacer(modifier = Modifier.preferredWidth(8.dp))
-            Text(text = "Enabled")
+            MockStateOverlay ()
         }
     }
 }

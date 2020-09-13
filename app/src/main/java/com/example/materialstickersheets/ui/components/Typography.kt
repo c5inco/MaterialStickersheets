@@ -17,7 +17,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 
-@Preview(showBackground = true, heightDp = 2000, widthDp = 1200)
 @Composable
 fun Typography() {
     Column(

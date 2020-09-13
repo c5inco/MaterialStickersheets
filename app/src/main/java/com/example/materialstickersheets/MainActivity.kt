@@ -32,24 +32,6 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-@Composable
-fun Artboard(name: String, content: @Composable () -> Unit) {
-    Surface(
-        color = Color(0xfff9f9f9),
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        Column(modifier = Modifier.padding(60.dp)) {
-            Text(text = "Material Design", style = MaterialTheme.typography.h6)
-            Spacer(modifier = Modifier.preferredHeight(16.dp))
-            Text(text = name, style = MaterialTheme.typography.h3)
-            Spacer(modifier = Modifier.preferredHeight(200.dp))
-            Divider(color = MaterialTheme.colors.onSurface)
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
-            content()
-        }
-    }
-}
-
 // TODO: When working with Modifiers, move statement up/down keyboard shortcut doesn't always work
 // TODO: File bug about height/width not filling, maxed out by something
 // TODO: fillMaxHeight fills to some arbitrary height in Preview that is not known to the user
@@ -92,19 +74,5 @@ fun TypographyArtboard() {
         Artboard(name = "Typography") {
             Typography()
         }
-    }
-}
-
-@Preview(showBackground = true, widthDp = 360)
-@Composable
-fun TestPreview() {
-    Row(
-        modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-    ) {
-        ImageListItem()
-        Spacer(modifier = Modifier.preferredWidth(16.dp))
-        ImageListItem(active = true)
     }
 }
