@@ -34,57 +34,58 @@ fun BaselineComponents() {
 
     // var showDialog by savedInstanceState { true }
 
-    Row {
-        Column(modifier = Modifier
+    Row(horizontalArrangement = Arrangement.spacedBy(72.dp)) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(72.dp),
+            modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
                 //.gravity(Alignment.CenterVertically) // TODO: Doesn't work in Preview, but works on device
         ) {
             TopAppBar(
-                    title = { Text(text ="Page title") },
-                    navigationIcon = {
-                        Icon(asset = Icons.Default.Menu)
-                    },
-                    actions = {
-                        Icon(asset = Icons.Default.Notifications)
-                        Spacer(modifier = Modifier.preferredWidth(24.dp))
-                        Icon(asset = Icons.Default.Notifications)
-                        Spacer(modifier = Modifier.preferredWidth(24.dp))
-                        Icon(asset = Icons.Default.Notifications)
-                    }
+                title = { Text(text ="Page title") },
+                navigationIcon = {
+                    Icon(asset = Icons.Default.Menu)
+                },
+                actions = {
+                    Icon(asset = Icons.Default.Notifications)
+                    Spacer(modifier = Modifier.preferredWidth(24.dp))
+                    Icon(asset = Icons.Default.Notifications)
+                    Spacer(modifier = Modifier.preferredWidth(24.dp))
+                    Icon(asset = Icons.Default.Notifications)
+                }
             )
-            Spacer(modifier = Modifier.preferredHeight(44.dp))
+
             Scaffold(
-                    modifier = Modifier.preferredHeight(84.dp),
-                    bottomBar = {
-                        BottomAppBar() {
-                            Row {
-                                // TODO: Icons are high emphasis, not medium like in Figma
-                                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
-                                    Icon(asset = Icons.Default.Menu)
-                                    Spacer(modifier = Modifier.preferredWidth(24.dp))
-                                    Icon(asset = Icons.Default.Search)
-                                    Spacer(modifier = Modifier.preferredWidth(24.dp))
-                                    Icon(asset = Icons.Default.Notifications)
-                                    Spacer(modifier = Modifier.preferredWidth(24.dp))
-                                    Icon(asset = Icons.Default.Share)
-                                }
+                modifier = Modifier.preferredHeight(84.dp),
+                bottomBar = {
+                    BottomAppBar() {
+                        Row {
+                            // TODO: Icons are high emphasis, not medium like in Figma
+                            ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                                Icon(asset = Icons.Default.Menu)
+                                Spacer(modifier = Modifier.preferredWidth(24.dp))
+                                Icon(asset = Icons.Default.Search)
+                                Spacer(modifier = Modifier.preferredWidth(24.dp))
+                                Icon(asset = Icons.Default.Notifications)
+                                Spacer(modifier = Modifier.preferredWidth(24.dp))
+                                Icon(asset = Icons.Default.Share)
                             }
                         }
-                    },
-                    floatingActionButton = {
-                        FloatingActionButton(onClick = {}) {
-                            Icon(asset = Icons.Default.Add)
-                        }
-                    },
-                    floatingActionButtonPosition = FabPosition.End,
-                    isFloatingActionButtonDocked = true
+                    }
+                },
+                floatingActionButton = {
+                    FloatingActionButton(onClick = {}) {
+                        Icon(asset = Icons.Default.Add)
+                    }
+                },
+                floatingActionButtonPosition = FabPosition.End,
+                isFloatingActionButtonDocked = true
             ) {
 
             }
 
             // TODO: Replace with real AlertDialog is easier to show without savedInstantState
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
             Row(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
@@ -128,7 +129,7 @@ fun BaselineComponents() {
                 }
             )
             */
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             Column {
                 // TODO: Had to manually draw Dividers and bottom spacing
                 ListItem(
@@ -146,26 +147,26 @@ fun BaselineComponents() {
                 Spacer(modifier = Modifier.preferredHeight(12.dp))
                 Divider()
             }
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             Column {
                 FakeRadioListItem(selected = true)
                 FakeRadioListItem()
                 FakeRadioListItem()
             }
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             Column {
                 FakeThreeLineListItem()
                 FakeThreeLineListItem()
                 FakeThreeLineListItem()
             }
         }
-        Spacer(modifier = Modifier.preferredWidth(72.dp))
-        Column(modifier = Modifier
+        Column(
+            verticalArrangement = Arrangement.spacedBy(72.dp),
+            modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
         ) {
             FakeBottomSheet()
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
 
             // TODO: Error and helper text params missing from TextField components
             OutlinedTextField(
@@ -174,14 +175,14 @@ fun BaselineComponents() {
                     onValueChange = {},
                     modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             OutlinedTextField(
                     label = { Text("Label") },
                     value = TextFieldValue(text = "Input text"),
                     onValueChange = {},
                     modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             TextField(
                     label = { Text("Label") },
                     leadingIcon = {
@@ -194,7 +195,7 @@ fun BaselineComponents() {
                     onValueChange = {},
                     modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             TextField(
                     label = { Text("Label") },
                     leadingIcon = {
@@ -207,7 +208,7 @@ fun BaselineComponents() {
                     onValueChange = {},
                     modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             Row(
                     verticalGravity = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
@@ -223,25 +224,23 @@ fun BaselineComponents() {
                 Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
             }
         }
-        Spacer(modifier = Modifier.preferredWidth(72.dp))
-        Column(modifier = Modifier
+        Column(
+            verticalArrangement = Arrangement.spacedBy(72.dp),
+            modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
         ) {
             var sliderPos by remember { mutableStateOf(0.5f) }
             Slider(value = sliderPos, steps = 10, onValueChange = { sliderPos = it }, valueRange = 0f..1f)
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
             FakeTabsIconAndText()
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
             FakeTabsIconOnly()
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             // TODO: Three lines allowed at certain widths
             // TODO: Not clear if Action slot is using accent color by default
             Snackbar(
                     text = { Text("Two lines with one action. One to two lines is preferable on mobile") },
                     action = { Text(text = "Action".toUpperCase(), color = SnackbarConstants.defaultActionPrimaryColor) },
             )
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
             /*
             val iconButton = @Composable {
                 IconButton(onClick = {}) {
@@ -272,7 +271,6 @@ fun BaselineComponents() {
             ) {
                 FakeMenu()
             }
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
             Row(
                 modifier = Modifier
                         .fillMaxWidth()
@@ -318,30 +316,29 @@ fun BaselineComponents() {
                     }
                 }
             }
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
 
             // TODO: Replace with Banner components (don't exist yet)
             FakeSimpleBanner()
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
             FakeFullBanner()
         }
-        Spacer(modifier = Modifier.preferredWidth(72.dp))
-        Column(modifier = Modifier
+        Column(
+            verticalArrangement = Arrangement.spacedBy(72.dp),
+            modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
         ) {
             Row(
-                    modifier = Modifier
-                            .fillMaxWidth()
-                            .preferredHeight(190.dp)
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .preferredHeight(190.dp)
             ) {
                 ConversionCard()
                 Spacer(modifier = Modifier.preferredWidth(24.dp))
                 ConversionCard(active = true)
             }
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             Row(
-                    modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Card(modifier = Modifier
                         .weight(1f)
@@ -357,11 +354,11 @@ fun BaselineComponents() {
                     FakeStateOverlay()
                 }
             }
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             Row(
-                    modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth()
+                modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth()
             ) {
                 ImageListItem()
                 Spacer(modifier = Modifier.preferredWidth(16.dp))
@@ -369,72 +366,72 @@ fun BaselineComponents() {
             }
 
             // TODO: Replace with real Chip and ChipGroup when components exist
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                FakeChip(selected = true) {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
-                    MockImage(modifier = Modifier
-                            .clip(CircleShape)
-                            .preferredSize(18.dp)
-                    )
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
-                    Text(text = "Enabled")
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    FakeChip(selected = true) {
+                        Spacer(modifier = Modifier.preferredWidth(6.dp))
+                        MockImage(modifier = Modifier
+                                .clip(CircleShape)
+                                .preferredSize(18.dp)
+                        )
+                        Spacer(modifier = Modifier.preferredWidth(8.dp))
+                        Text(text = "Enabled")
+                    }
+                    FakeChip {
+                        Spacer(modifier = Modifier.preferredWidth(6.dp))
+                        Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
+                        Spacer(modifier = Modifier.preferredWidth(8.dp))
+                        Text(text = "Enabled")
+                    }
+                    FakeChip {
+                        Spacer(modifier = Modifier.preferredWidth(6.dp))
+                        MockImage(modifier = Modifier
+                                .clip(CircleShape)
+                                .preferredSize(18.dp)
+                        )
+                        Spacer(modifier = Modifier.preferredWidth(8.dp))
+                        Text(text = "Enabled")
+                    }
                 }
-                FakeChip {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
-                    Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
-                    Text(text = "Enabled")
-                }
-                FakeChip {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
-                    MockImage(modifier = Modifier
-                            .clip(CircleShape)
-                            .preferredSize(18.dp)
-                    )
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
-                    Text(text = "Enabled")
-                }
-            }
-            Spacer(modifier = Modifier.preferredHeight(8.dp))
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                FakeChip(selected = true) {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
-                    MockImage(modifier = Modifier
-                            .clip(CircleShape)
-                            .preferredSize(18.dp)
-                    )
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
-                    Text(text = "Enabled")
-                }
-                FakeChip {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
-                    Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
-                    Text(text = "Enabled")
-                }
-                FakeChip {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
-                    MockImage(modifier = Modifier
-                            .clip(CircleShape)
-                            .preferredSize(18.dp)
-                    )
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
-                    Text(text = "Enabled")
+                Spacer(modifier = Modifier.preferredHeight(8.dp))
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    FakeChip(selected = true) {
+                        Spacer(modifier = Modifier.preferredWidth(6.dp))
+                        MockImage(modifier = Modifier
+                                .clip(CircleShape)
+                                .preferredSize(18.dp)
+                        )
+                        Spacer(modifier = Modifier.preferredWidth(8.dp))
+                        Text(text = "Enabled")
+                    }
+                    FakeChip {
+                        Spacer(modifier = Modifier.preferredWidth(6.dp))
+                        Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
+                        Spacer(modifier = Modifier.preferredWidth(8.dp))
+                        Text(text = "Enabled")
+                    }
+                    FakeChip {
+                        Spacer(modifier = Modifier.preferredWidth(6.dp))
+                        MockImage(modifier = Modifier
+                                .clip(CircleShape)
+                                .preferredSize(18.dp)
+                        )
+                        Spacer(modifier = Modifier.preferredWidth(8.dp))
+                        Text(text = "Enabled")
+                    }
                 }
             }
 
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
             Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalGravity = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier.fillMaxWidth(),
+                verticalGravity = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 // TODO: Button text is ALL CAPS in Figma stickersheet
                 TextButton(onClick = {}) {
@@ -450,16 +447,15 @@ fun BaselineComponents() {
                 }
             }
 
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
             Surface(
-                    modifier = Modifier
-                            .fillMaxWidth()
-                            .preferredHeight(247.dp),
-                    elevation = 4.dp
+                modifier = Modifier
+                        .fillMaxWidth()
+                        .preferredHeight(247.dp),
+                elevation = 4.dp
             ) {
                 emptyContent()
             }
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             FakeBottomNavIconAndText()
         }
     }
