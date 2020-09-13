@@ -238,8 +238,8 @@ fun BaselineComponents() {
             // TODO: Three lines allowed at certain widths
             // TODO: Not clear if Action slot is using accent color by default
             Snackbar(
-                    text = { Text("Two lines with one action. One to two lines is preferable on mobile") },
-                    action = { Text(text = "Action".toUpperCase(), color = SnackbarConstants.defaultActionPrimaryColor) },
+                text = { Text("Two lines with one action. One to two lines is preferable on mobile") },
+                action = { Text(text = "Action".toUpperCase(), color = SnackbarConstants.defaultActionPrimaryColor) },
             )
             /*
             val iconButton = @Composable {
@@ -280,12 +280,9 @@ fun BaselineComponents() {
                 Card(modifier = Modifier.weight(1f)) {
                     Column {
                         Column(modifier = Modifier.background(color = Color(0x0fff00ff))) {
-                            Image(
-                                    asset = vectorResource(id = R.drawable.ic_blank_avatar),
-                                    modifier = Modifier
-                                            .preferredHeight(172.dp)
-                                            .fillMaxWidth()
-                                            .background(color = Color(0xffe6e6e6))
+                            MockImage(modifier = Modifier
+                                    .preferredHeight(172.dp)
+                                    .fillMaxWidth()
                             )
                         }
                         Divider(modifier = Modifier.preferredHeight(1.dp))
@@ -299,12 +296,9 @@ fun BaselineComponents() {
                 Card(modifier = Modifier.weight(1f)) {
                     Stack {
                         Column {
-                            Image(
-                                    asset = vectorResource(id = R.drawable.ic_blank_avatar),
-                                    modifier = Modifier
-                                            .preferredHeight(172.dp)
-                                            .fillMaxWidth()
-                                            .background(color = Color(0xffe6e6e6))
+                            MockImage(modifier = Modifier
+                                    .preferredHeight(172.dp)
+                                    .fillMaxWidth()
                             )
                             Divider(modifier = Modifier.preferredHeight(1.dp))
                             Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 11.dp)) {
@@ -355,10 +349,9 @@ fun BaselineComponents() {
                 }
             }
 
-            Row(
-                modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
+            Row(modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
             ) {
                 ImageListItem()
                 Spacer(modifier = Modifier.preferredWidth(16.dp))
@@ -546,12 +539,9 @@ fun FakeThreeLineListItem() {
         ListItem(
                 text = { Text(text = "Three-line item") },
                 icon = {
-                    Image(
-                            asset = vectorResource(id = R.drawable.ic_blank_avatar),
-                            modifier = Modifier
-                                    .background(Color( 0xffe6e6e6))
-                                    .preferredHeight(56.dp)
-                                    .preferredWidth(100.dp)
+                    MockImage(modifier = Modifier
+                        .preferredHeight(56.dp)
+                        .preferredWidth(100.dp)
                     )
                 },
                 secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur ") },
@@ -571,18 +561,14 @@ fun FakeRadioListItem(selected: Boolean = false) {
     // TODO: RadioButton color is set to primary in Figma stickersheet
     Column {
         ListItem(
-                text = { Text(text = "Subtitle 1") },
-                icon = {
-                    Image(
-                            asset = vectorResource(id = R.drawable.ic_blank_avatar),
-                            modifier = Modifier
-                                    .clip(CircleShape)
-                                    .background(Color(0xffe6e6e6))
-                                    .preferredHeight(40.dp)
-                                    .preferredWidth(40.dp)
-                    )
-                },
-                trailing = { RadioButton(selected = selected, onClick = {}) }
+            text = { Text(text = "Subtitle 1") },
+            icon = {
+                MockImage(modifier = Modifier
+                        .clip(CircleShape)
+                        .preferredSize(40.dp)
+                )
+            },
+            trailing = { RadioButton(selected = selected, onClick = {}) }
         )
         Divider(startIndent = (40+16+16).dp)
     }
@@ -886,23 +872,18 @@ fun ImageListItem(active: Boolean = false) {
             .preferredHeight(207.dp)
             .weight(1f)
     ) {
-        Image(
-                asset = vectorResource(id = R.drawable.ic_blank_avatar),
-                modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = Color(0xffe6e6e6))
-        )
+        MockImage(modifier = Modifier.fillMaxSize())
 
         Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Bottom
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Bottom
         ) {
             Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier
-                            .background(color = Color.Black.copy(alpha = 0.38f))
-                            .padding(horizontal = 16.dp, vertical = 12.dp)
-                            .fillMaxWidth()
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                        .background(color = Color.Black.copy(alpha = 0.38f))
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .fillMaxWidth()
             ) {
                 Text(text = "Subtitle 1", style = MaterialTheme.typography.subtitle1)
                 Icon(asset = Icons.Default.Favorite)
