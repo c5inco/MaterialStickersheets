@@ -19,7 +19,10 @@ import androidx.compose.ui.graphics.vector.VectorAsset
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import androidx.ui.tooling.preview.Preview
+import com.example.materialstickersheets.Artboard
 import com.example.materialstickersheets.R
+import com.example.materialstickersheets.ui.MaterialStickersheetsTheme
 
 @Composable
 fun BaselineComponents() {
@@ -150,6 +153,9 @@ fun BaselineComponents() {
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
         ) {
+            FakeBottomSheet()
+            Spacer(modifier = Modifier.preferredHeight(72.dp))
+
             // TODO: Error and helper text params missing from TextField components
             OutlinedTextField(
                     label = { Text("Label") },
@@ -505,27 +511,6 @@ fun FakeRadioListItem(selected: Boolean = false) {
     }
 }
 
-// TODO: Need to create state overlay by hand?
-@Composable
-fun FakeStateOverlay() {
-    ConstraintLayout(
-            modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = MaterialTheme.colors.primary.copy(alpha = 0.08f))
-    ) {
-        val (icon) = createRefs()
-
-        Icon(
-                asset = Icons.Default.CheckCircle,
-                tint = MaterialTheme.colors.primary,
-                modifier = Modifier.constrainAs(icon) {
-                    top.linkTo(parent.top, margin = 8.dp)
-                    end.linkTo(parent.end, margin = 8.dp)
-                }
-        )
-    }
-}
-
 @Composable
 fun ConversionCard(active: Boolean = false) {
     Card(modifier = Modifier
@@ -569,6 +554,63 @@ fun ConversionCard(active: Boolean = false) {
     }
 }
 
+// TODO: Quick re-implementation of BottomSheet component
+@Composable
+fun FakeBottomSheet() {
+    Column(
+        verticalArrangement = Arrangement.Bottom,
+        modifier = Modifier
+                .preferredHeight(644.dp)
+                .fillMaxSize()
+                .background(color = Color(0x52000000))
+    ) {
+        Surface(modifier = Modifier.fillMaxWidth(), elevation = 16.dp) {
+            Column {
+                Row(
+                    verticalGravity = Alignment.CenterVertically,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
+                ) {
+                    MockImage(modifier = Modifier
+                            .preferredSize(40.dp)
+                            .clip(CircleShape)
+                    )
+                    Spacer(modifier = Modifier.preferredWidth(16.dp))
+                    Column {
+                        Text(text = "Headline 6", style = MaterialTheme.typography.h6)
+                        Text(text = "Body 2", style = MaterialTheme.typography.body2)
+                    }
+                }
+                Divider()
+                Column {
+                    FakeBottomSheetItem()
+                    FakeBottomSheetItem()
+                    FakeBottomSheetItem(active = true)
+                    FakeBottomSheetItem()
+                    FakeBottomSheetItem()
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun FakeBottomSheetItem(active: Boolean = false) {
+    val currentTint = if(active) MaterialTheme.colors.primary else EmphasisAmbient.current.medium.applyEmphasis(contentColor())
+    val currentModifier = if (active) Modifier.background(color = MaterialTheme.colors.primary.copy(alpha = 0.08f)) else Modifier
+
+    Row(
+        verticalGravity = Alignment.CenterVertically,
+        modifier = currentModifier
+                .padding(horizontal = 16.dp)
+                .preferredHeight(48.dp)
+                .fillMaxWidth()
+    ) {
+        Icon(asset = Icons.Default.Favorite, tint = currentTint)
+        Spacer(modifier = Modifier.preferredWidth(32.dp))
+        Text(text = "Subtitle 2", style = MaterialTheme.typography.subtitle2, color = currentTint)
+    }
+}
+
 // TODO: Quick re-implementation of ImageListItem
 @Composable
 fun ImageListItem(active: Boolean = false) {
@@ -604,9 +646,20 @@ fun ImageListItem(active: Boolean = false) {
     }
 }
 
+@Preview(showBackground = true, widthDp = 360)
 @Composable
-fun FakeStatusbar() {
-    Row(modifier = Modifier.preferredHeight(24.dp)){
+fun PrototypingPreview() {
+    MaterialStickersheetsTheme {
+        FakeBottomSheet()
+    }
+}
 
+@Preview(showBackground = true, heightDp = 2800, widthDp = 1782, name = "Material Theme")
+@Composable
+fun BaselineStandalone() {
+    MaterialStickersheetsTheme {
+        Artboard(name = "Baseline components") {
+            BaselineComponents()
+        }
     }
 }
