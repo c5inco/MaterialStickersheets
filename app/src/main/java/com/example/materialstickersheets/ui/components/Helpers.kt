@@ -18,7 +18,7 @@ import com.example.materialstickersheets.R
 @Composable
 fun Artboard(name: String, content: @Composable () -> Unit) {
     Surface(
-        color = Color(0xfff9f9f9),
+        color = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize(),
     ) {
         Column(modifier = Modifier.padding(60.dp)) {
