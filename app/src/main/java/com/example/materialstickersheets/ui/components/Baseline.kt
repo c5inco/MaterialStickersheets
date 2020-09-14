@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.example.materialstickersheets.R
-import com.example.materialstickersheets.ui.MaterialStickersheetsTheme
+import com.example.materialstickersheets.ui.themes.MaterialStickersheetsTheme
 
 @Composable
 fun BaselineComponents() {

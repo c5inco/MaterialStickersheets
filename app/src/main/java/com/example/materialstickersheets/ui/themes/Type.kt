@@ -1,4 +1,4 @@
-package com.example.materialstickersheets.ui
+package com.example.materialstickersheets.ui.themes
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

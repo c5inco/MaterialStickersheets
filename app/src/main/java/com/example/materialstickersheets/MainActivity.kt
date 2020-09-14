@@ -3,15 +3,11 @@ package com.example.materialstickersheets
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.setContent
-import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
-import com.example.materialstickersheets.ui.MaterialStickersheetsTheme
+import com.example.materialstickersheets.ui.themes.MaterialStickersheetsTheme
 import com.example.materialstickersheets.ui.components.*
 
 class MainActivity : AppCompatActivity() {
