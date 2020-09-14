@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialStickersheetsTheme {
+            MaterialStickersheetsTheme(darkTheme = true) {
                 // A surface container using the 'background' color from the theme
                 Surface {
                     ScrollableColumn {
@@ -63,11 +63,31 @@ fun MaterialThemeArtboard() {
     }
 }
 
+@Preview(showBackground = true, heightDp = 2800, widthDp = 1782, name = "Material Theme (Dark)")
+@Composable
+fun MaterialThemeDarkArtboard() {
+    MaterialStickersheetsTheme(darkTheme = true) {
+        Artboard(name = "Dark Theme components") {
+            BaselineComponents()
+        }
+    }
+}
+
 @Preview(showBackground = true, heightDp = 2320, widthDp = 1440, name = "Typography")
 @Composable
 fun TypographyArtboard() {
     MaterialStickersheetsTheme {
         Artboard(name = "Typography") {
+            Typography()
+        }
+    }
+}
+
+@Preview(showBackground = true, heightDp = 2320, widthDp = 1440, name = "Typography (Dark)")
+@Composable
+fun TypographyDarkArtboard() {
+    MaterialStickersheetsTheme(darkTheme = true) {
+        Artboard(name = "Typography (Dark)") {
             Typography()
         }
     }
