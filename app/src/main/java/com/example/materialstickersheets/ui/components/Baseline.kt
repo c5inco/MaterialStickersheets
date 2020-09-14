@@ -601,10 +601,9 @@ fun MockChip(
                 .wrapContentWidth()
     ) {
         Row(verticalGravity = Alignment.CenterVertically) {
-            Row(verticalGravity = Alignment.CenterVertically) {
-                content()
-                Spacer(modifier = if (selected) Modifier.preferredWidth(8.dp) else Modifier.preferredWidth(12.dp))
-            }
+            content()
+            Spacer(modifier = if (selected) Modifier.preferredWidth(8.dp) else Modifier.preferredWidth(12.dp))
+
             if (selected) {
                 Icon(
                     asset = vectorResource(id = R.drawable.ic_cancel),
