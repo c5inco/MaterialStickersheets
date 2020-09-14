@@ -38,22 +38,27 @@ fun BaselineComponents() {
                 .fillMaxHeight()
                 //.gravity(Alignment.CenterVertically) // TODO: Doesn't work in Preview, but works on device
         ) {
-            TopAppBar(
-                title = { Text(text ="Page title") },
-                navigationIcon = {
-                    Icon(asset = Icons.Default.Menu)
-                },
-                actions = {
-                    Icon(asset = Icons.Default.Notifications)
-                    Spacer(modifier = Modifier.preferredWidth(24.dp))
-                    Icon(asset = Icons.Default.Notifications)
-                    Spacer(modifier = Modifier.preferredWidth(24.dp))
-                    Icon(asset = Icons.Default.Notifications)
-                }
-            )
+            Column {
+                MockStatusbar(
+                    backgroundColor = MaterialTheme.colors.primary,
+                    iconTint = MaterialTheme.colors.onPrimary
+                )
+                TopAppBar(
+                    title = { Text(text ="Page title") },
+                    navigationIcon = {
+                        Icon(asset = Icons.Default.Menu)
+                    },
+                    actions = {
+                        Icon(asset = Icons.Default.Notifications)
+                        Spacer(modifier = Modifier.preferredWidth(24.dp))
+                        Icon(asset = Icons.Default.Notifications)
+                        Spacer(modifier = Modifier.preferredWidth(24.dp))
+                        Icon(asset = Icons.Default.Notifications)
+                    }
+                )
+            }
 
             Scaffold(
-                modifier = Modifier.preferredHeight(84.dp),
                 bottomBar = {
                     BottomAppBar {
                         Row {
@@ -70,13 +75,15 @@ fun BaselineComponents() {
                         }
                     }
                 },
-                floatingActionButton = {
+                    floatingActionButton = {
                     FloatingActionButton(onClick = {}) {
                         Icon(asset = Icons.Default.Add)
                     }
                 },
                 floatingActionButtonPosition = FabPosition.End,
-                isFloatingActionButtonDocked = true
+                isFloatingActionButtonDocked = true,
+                backgroundColor = Color.Transparent,
+                modifier = Modifier.preferredHeight(84.dp)
             ) {
 
             }
@@ -145,9 +152,16 @@ fun BaselineComponents() {
             }
 
             Column {
-                RadioListItem(selected = true)
-                RadioListItem()
-                RadioListItem()
+                val (selectedItem, setSelectedItem) = remember { mutableStateOf(0) }
+                val items = 0..2
+                items.forEach { item ->
+                    RadioListItem(
+                        selected = item == selectedItem,
+                        onSelect = {
+                            setSelectedItem(item)
+                        }
+                    )
+                }
             }
 
             Column {
@@ -209,10 +223,11 @@ fun BaselineComponents() {
                 verticalGravity = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
+                var sliderPos by remember { mutableStateOf(0.3f) }
                 Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
                 Slider(
-                    value = 0.3f,
-                    onValueChange = {},
+                    value = sliderPos,
+                    onValueChange = { sliderPos = it },
                     modifier = Modifier
                             .weight(1.0f)
                             .padding(horizontal = 16.dp)
@@ -553,7 +568,7 @@ fun MockThreeLineListItem() {
 }
 
 @Composable
-fun RadioListItem(selected: Boolean = false) {
+fun RadioListItem(selected: Boolean = false, onSelect: () -> Unit) {
     // TODO: RadioButton color is set to primary in Figma stickersheet
     Column {
         ListItem(
@@ -564,7 +579,7 @@ fun RadioListItem(selected: Boolean = false) {
                         .preferredSize(40.dp)
                 )
             },
-            trailing = { RadioButton(selected = selected, onClick = {}) }
+            trailing = { RadioButton(selected = selected, onClick = onSelect) }
         )
         Divider(startIndent = (40+16+16).dp)
     }
