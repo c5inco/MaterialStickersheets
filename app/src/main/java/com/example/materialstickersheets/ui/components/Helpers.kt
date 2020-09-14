@@ -42,9 +42,21 @@ fun MockImage(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MockStatusbar() {
-    Row(modifier = Modifier.preferredHeight(24.dp)){
-
+fun MockStatusbar(
+        backgroundColor: Color = Color.Black.copy(alpha = 0.08f),
+        iconTint: Color = MaterialTheme.colors.onSurface
+) {
+    Row(
+        horizontalArrangement = Arrangement.End,
+        modifier = Modifier
+            .background(color = backgroundColor)
+            .preferredHeight(24.dp)
+            .fillMaxWidth()
+    ){
+        Icon(
+            asset = vectorResource(id = R.drawable.ic_status_icons),
+            tint = EmphasisAmbient.current.disabled.applyEmphasis(iconTint)
+        )
     }
 }
 
@@ -65,5 +77,14 @@ fun MockStateOverlay() {
                 end.linkTo(parent.end, margin = 8.dp)
             }
         )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 360)
+@Composable
+fun HelpersPreview() {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        MockStatusbar()
+        MockStatusbar(backgroundColor = MaterialTheme.colors.primary, iconTint = MaterialTheme.colors.onPrimary)
     }
 }
