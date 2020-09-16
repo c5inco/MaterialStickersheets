@@ -22,445 +22,447 @@ import com.example.materialstickersheets.R
 import com.example.materialstickersheets.ui.themes.MaterialStickersheetsTheme
 
 @Composable
-fun BaselineComponents() {
-    // TODO: Didn't know I had to import all of these to make this work:
-    // import androidx.compose.runtime.getValue
-    // import androidx.compose.runtime.savedinstancestate.savedInstanceState
-    // import androidx.compose.runtime.setValue
-
+fun BaselineComponents1() {
     // var showDialog by savedInstanceState { true }
 
-    Row(horizontalArrangement = Arrangement.spacedBy(72.dp)) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(72.dp),
-            modifier = Modifier
-                .preferredWidth(360.dp)
-                .fillMaxHeight()
-                //.gravity(Alignment.CenterVertically) // TODO: Doesn't work in Preview, but works on device
-        ) {
-            Column {
-                MockStatusbar(
-                    backgroundColor = MaterialTheme.colors.primary,
-                    iconTint = MaterialTheme.colors.onPrimary
-                )
-                TopAppBar(
-                    title = { Text(text ="Page title") },
-                    navigationIcon = {
-                        Icon(asset = Icons.Default.Menu)
-                    },
-                    actions = {
-                        Icon(asset = Icons.Default.Notifications)
-                        Spacer(modifier = Modifier.preferredWidth(24.dp))
-                        Icon(asset = Icons.Default.Notifications)
-                        Spacer(modifier = Modifier.preferredWidth(24.dp))
-                        Icon(asset = Icons.Default.Notifications)
-                    }
-                )
-            }
-
-            Scaffold(
-                bottomBar = {
-                    BottomAppBar {
-                        Row {
-                            // TODO: Icons are high emphasis, not medium like in Figma
-                            ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
-                                Icon(asset = Icons.Default.Menu)
-                                Spacer(modifier = Modifier.preferredWidth(24.dp))
-                                Icon(asset = Icons.Default.Search)
-                                Spacer(modifier = Modifier.preferredWidth(24.dp))
-                                Icon(asset = Icons.Default.Notifications)
-                                Spacer(modifier = Modifier.preferredWidth(24.dp))
-                                Icon(asset = Icons.Default.Share)
-                            }
-                        }
-                    }
+    Column(
+        verticalArrangement = Arrangement.spacedBy(72.dp),
+        modifier = Modifier
+            .preferredWidth(360.dp)
+            .fillMaxHeight()
+            //.gravity(Alignment.CenterVertically) // TODO: Doesn't work in Preview, but works on device
+    ) {
+        Column {
+            MockStatusbar(
+                backgroundColor = MaterialTheme.colors.primary,
+                iconTint = MaterialTheme.colors.onPrimary
+            )
+            TopAppBar(
+                title = { Text(text ="Page title") },
+                navigationIcon = {
+                    Icon(asset = Icons.Default.Menu)
                 },
-                    floatingActionButton = {
-                    FloatingActionButton(onClick = {}) {
-                        Icon(asset = Icons.Default.Add)
-                    }
-                },
-                floatingActionButtonPosition = FabPosition.End,
-                isFloatingActionButtonDocked = true,
-                backgroundColor = Color.Transparent,
-                modifier = Modifier.preferredHeight(84.dp)
-            ) {
-
-            }
-
-            // TODO: Replace with real AlertDialog is easier to show without savedInstantState
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                MockAlertDialog()
-            }
-
-            /*
-            // TODO: Removing for now - doesn't work in preview since showDialog is in savedInstanceState
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
-            AlertDialog(
-                onDismissRequest = { showDialog = false },
-                title = {
-                    Text(text = "Headline 6")
-                },
-                text = {
-                    Text(text = "Subtitle 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
-                },
-                /*
-                // TODO: Using this method means doing alignment manually?
-                buttons = {
-                    Row {
-                        TextButton(onClick = {}) {
-                            Text(text = "Button".toUpperCase())
-                        }
-                        TextButton(onClick = {}) {
-                            Text(text = "Button".toUpperCase())
-                        }
-                    }
-                },
-                */
-                confirmButton = {
-                    TextButton(onClick = {}) {
-                        Text(text = "Button".toUpperCase())
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = {}) {
-                        Text(text = "Button".toUpperCase())
-                    }
+                actions = {
+                    Icon(asset = Icons.Default.Notifications)
+                    Spacer(modifier = Modifier.preferredWidth(24.dp))
+                    Icon(asset = Icons.Default.Notifications)
+                    Spacer(modifier = Modifier.preferredWidth(24.dp))
+                    Icon(asset = Icons.Default.Notifications)
                 }
             )
-            */
+        }
 
-            Column {
-                // TODO: Had to manually draw Dividers and bottom spacing
-                ListItem(
-                        text = { Text(text = "Subtitle 1") },
-                        secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.") },
-                        trailing = { Text(text = "01") }
-                )
-                Spacer(modifier = Modifier.preferredHeight(12.dp))
-                Divider()
-                ListItem(
-                        text = { Text(text = "Subtitle 2") },
-                        secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.") },
-                        trailing = { Text(text = "02") }
-                )
-                Spacer(modifier = Modifier.preferredHeight(12.dp))
-                Divider()
-            }
-
-            Column {
-                val (selectedItem, setSelectedItem) = remember { mutableStateOf(0) }
-                val items = 0..2
-                items.forEach { item ->
-                    RadioListItem(
-                        selected = item == selectedItem,
-                        onSelect = {
-                            setSelectedItem(item)
+        Scaffold(
+            bottomBar = {
+                BottomAppBar {
+                    Row {
+                        // TODO: Icons are high emphasis, not medium like in Figma
+                        ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                            Icon(asset = Icons.Default.Menu)
+                            Spacer(modifier = Modifier.preferredWidth(24.dp))
+                            Icon(asset = Icons.Default.Search)
+                            Spacer(modifier = Modifier.preferredWidth(24.dp))
+                            Icon(asset = Icons.Default.Notifications)
+                            Spacer(modifier = Modifier.preferredWidth(24.dp))
+                            Icon(asset = Icons.Default.Share)
                         }
-                    )
+                    }
+                }
+            },
+                floatingActionButton = {
+                FloatingActionButton(onClick = {}) {
+                    Icon(asset = Icons.Default.Add)
+                }
+            },
+            floatingActionButtonPosition = FabPosition.End,
+            isFloatingActionButtonDocked = true,
+            backgroundColor = Color.Transparent,
+            modifier = Modifier.preferredHeight(84.dp)
+        ) {
+
+        }
+
+        // TODO: Replace with real AlertDialog is easier to show without savedInstantState
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            MockAlertDialog()
+        }
+
+        /*
+        // TODO: Removing for now - doesn't work in preview since showDialog is in savedInstanceState
+        Spacer(modifier = Modifier.preferredHeight(72.dp))
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = {
+                Text(text = "Headline 6")
+            },
+            text = {
+                Text(text = "Subtitle 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+            },
+            /*
+            // TODO: Using this method means doing alignment manually?
+            buttons = {
+                Row {
+                    TextButton(onClick = {}) {
+                        Text(text = "Button".toUpperCase())
+                    }
+                    TextButton(onClick = {}) {
+                        Text(text = "Button".toUpperCase())
+                    }
+                }
+            },
+            */
+            confirmButton = {
+                TextButton(onClick = {}) {
+                    Text(text = "Button".toUpperCase())
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {}) {
+                    Text(text = "Button".toUpperCase())
                 }
             }
+        )
+        */
 
-            Column {
-                MockThreeLineListItem()
-                MockThreeLineListItem()
-                MockThreeLineListItem()
+        Column {
+            // TODO: Had to manually draw Dividers and bottom spacing
+            ListItem(
+                text = { Text(text = "Subtitle 1") },
+                secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.") },
+                trailing = { Text(text = "01") }
+            )
+            Spacer(modifier = Modifier.preferredHeight(12.dp))
+            Divider()
+            ListItem(
+                text = { Text(text = "Subtitle 2") },
+                secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.") },
+                trailing = { Text(text = "02") }
+            )
+            Spacer(modifier = Modifier.preferredHeight(12.dp))
+            Divider()
+        }
+
+        Column {
+            val (selectedItem, setSelectedItem) = remember { mutableStateOf(0) }
+            val items = 0..2
+            items.forEach { item ->
+                RadioListItem(
+                    selected = item == selectedItem,
+                    onSelect = {
+                        setSelectedItem(item)
+                    }
+                )
             }
         }
-        Column(
-            verticalArrangement = Arrangement.spacedBy(72.dp),
-            modifier = Modifier
+
+        Column {
+            MockThreeLineListItem()
+            MockThreeLineListItem()
+            MockThreeLineListItem()
+        }
+    }
+}
+
+@Composable
+fun BaselineComponents2() {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(72.dp),
+        modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
+    ) {
+        MockBottomSheet()
+
+        // TODO: Error and helper text params missing from TextField components
+        OutlinedTextField(
+            label = { Text("Label") },
+            value = TextFieldValue(),
+            onValueChange = {},
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OutlinedTextField(
+            label = { Text("Label") },
+            value = TextFieldValue(text = "Input text"),
+            onValueChange = {},
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        TextField(
+            label = { Text("Label") },
+            leadingIcon = {
+                Icon(asset = Icons.Default.Favorite)
+            },
+            trailingIcon = {
+                Icon(asset = vectorResource(id = R.drawable.ic_visibility))
+            },
+            value = TextFieldValue(),
+            onValueChange = {},
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        TextField(
+            label = { Text("Label") },
+            leadingIcon = {
+                Icon(asset = Icons.Default.Favorite)
+            },
+            trailingIcon = {
+                Icon(asset = vectorResource(id = R.drawable.ic_visibility))
+            },
+            value = TextFieldValue(text = "Input text"),
+            onValueChange = {},
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Row(
+            verticalGravity = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
         ) {
-            MockBottomSheet()
-
-            // TODO: Error and helper text params missing from TextField components
-            OutlinedTextField(
-                label = { Text("Label") },
-                value = TextFieldValue(),
-                onValueChange = {},
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            OutlinedTextField(
-                label = { Text("Label") },
-                value = TextFieldValue(text = "Input text"),
-                onValueChange = {},
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            TextField(
-                label = { Text("Label") },
-                leadingIcon = {
-                    Icon(asset = Icons.Default.Favorite)
-                },
-                trailingIcon = {
-                    Icon(asset = vectorResource(id = R.drawable.ic_visibility))
-                },
-                value = TextFieldValue(),
-                onValueChange = {},
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            TextField(
-                label = { Text("Label") },
-                leadingIcon = {
-                    Icon(asset = Icons.Default.Favorite)
-                },
-                trailingIcon = {
-                    Icon(asset = vectorResource(id = R.drawable.ic_visibility))
-                },
-                value = TextFieldValue(text = "Input text"),
-                onValueChange = {},
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Row(
-                verticalGravity = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                var sliderPos by remember { mutableStateOf(0.3f) }
-                Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
-                Slider(
+            var sliderPos by remember { mutableStateOf(0.3f) }
+            Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
+            Slider(
                     value = sliderPos,
                     onValueChange = { sliderPos = it },
                     modifier = Modifier
                             .weight(1.0f)
                             .padding(horizontal = 16.dp)
-                )
-                Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
-            }
+            )
+            Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
         }
-        Column(
-            verticalArrangement = Arrangement.spacedBy(72.dp),
-            modifier = Modifier
+    }
+}
+
+@Composable
+fun BaselineComponents3() {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(72.dp),
+        modifier = Modifier
                 .preferredWidth(360.dp)
                 .fillMaxHeight()
-        ) {
-            var sliderPos by remember { mutableStateOf(0.5f) }
-            Slider(value = sliderPos, steps = 10, onValueChange = { sliderPos = it }, valueRange = 0f..1f)
-            TabsIconAndText()
-            TabsIconOnly()
+    ) {
+        var sliderPos by remember { mutableStateOf(0.5f) }
+        Slider(value = sliderPos, steps = 10, onValueChange = { sliderPos = it }, valueRange = 0f..1f)
+        TabsIconAndText()
+        TabsIconOnly()
 
-            // TODO: Three lines allowed at certain widths
-            // TODO: Not clear if Action slot is using accent color by default
-            Snackbar(
+        // TODO: Three lines allowed at certain widths
+        // TODO: Not clear if Action slot is using accent color by default
+        Snackbar(
                 text = { Text("Two lines with one action. One to two lines is preferable on mobile") },
                 action = { Text(text = "Action".toUpperCase(), color = SnackbarConstants.defaultActionPrimaryColor) },
-            )
-            /*
-            val iconButton = @Composable {
-                IconButton(onClick = {}) {
-                    Icon(Icons.Default.MoreVert)
-                }
+        )
+        /*
+        val iconButton = @Composable {
+            IconButton(onClick = {}) {
+                Icon(Icons.Default.MoreVert)
             }
-            DropdownMenu(
-                expanded = true,
-                onDismissRequest = {},
-                toggle = iconButton,
-                toggleModifier = Modifier.fillMaxHeight().wrapContentSize(Alignment.TopStart)
-            ) {
-                DropdownMenuItem(onClick = { /* Handle refresh! */ }) {
-                    Text("Refresh")
-                }
-                DropdownMenuItem(onClick = { /* Handle settings! */ }) {
-                    Text("Settings")
-                }
-                Divider()
-                DropdownMenuItem(onClick = { /* Handle send feedback! */ }) {
-                    Text("Send Feedback")
-                }
+        }
+        DropdownMenu(
+            expanded = true,
+            onDismissRequest = {},
+            toggle = iconButton,
+            toggleModifier = Modifier.fillMaxHeight().wrapContentSize(Alignment.TopStart)
+        ) {
+            DropdownMenuItem(onClick = { /* Handle refresh! */ }) {
+                Text("Refresh")
             }
-            */
-            Row(
+            DropdownMenuItem(onClick = { /* Handle settings! */ }) {
+                Text("Settings")
+            }
+            Divider()
+            DropdownMenuItem(onClick = { /* Handle send feedback! */ }) {
+                Text("Send Feedback")
+            }
+        }
+        */
+        Row(
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
-            ) {
-                MockMenu()
+        ) {
+            MockMenu()
+        }
+        Row(modifier = Modifier
+                .fillMaxWidth()
+                .preferredHeight(242.dp)
+        ) {
+            // TODO: Wonder if this Card layout should be a template?
+            Card(modifier = Modifier.weight(1f)) {
+                Column {
+                    Column(modifier = Modifier.background(color = Color(0x0fff00ff))) {
+                        MockImage(modifier = Modifier
+                                .preferredHeight(172.dp)
+                                .fillMaxWidth()
+                        )
+                    }
+                    Divider(modifier = Modifier.preferredHeight(1.dp))
+                    Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 11.dp)) {
+                        Text(text = "Headline 6", style = MaterialTheme.typography.h6)
+                        Text(text = "Body 2", style = MaterialTheme.typography.body2)
+                    }
+                }
             }
-            Row(modifier = Modifier
-                        .fillMaxWidth()
-                        .preferredHeight(242.dp)
-            ) {
-                // TODO: Wonder if this Card layout should be a template?
-                Card(modifier = Modifier.weight(1f)) {
+            Spacer(modifier = Modifier.preferredWidth(16.dp))
+            Card(modifier = Modifier.weight(1f)) {
+                Stack {
                     Column {
-                        Column(modifier = Modifier.background(color = Color(0x0fff00ff))) {
-                            MockImage(modifier = Modifier
-                                    .preferredHeight(172.dp)
-                                    .fillMaxWidth()
-                            )
-                        }
+                        MockImage(modifier = Modifier
+                                .preferredHeight(172.dp)
+                                .fillMaxWidth()
+                        )
                         Divider(modifier = Modifier.preferredHeight(1.dp))
                         Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 11.dp)) {
                             Text(text = "Headline 6", style = MaterialTheme.typography.h6)
                             Text(text = "Body 2", style = MaterialTheme.typography.body2)
                         }
                     }
-                }
-                Spacer(modifier = Modifier.preferredWidth(16.dp))
-                Card(modifier = Modifier.weight(1f)) {
-                    Stack {
-                        Column {
-                            MockImage(modifier = Modifier
-                                    .preferredHeight(172.dp)
-                                    .fillMaxWidth()
-                            )
-                            Divider(modifier = Modifier.preferredHeight(1.dp))
-                            Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 11.dp)) {
-                                Text(text = "Headline 6", style = MaterialTheme.typography.h6)
-                                Text(text = "Body 2", style = MaterialTheme.typography.body2)
-                            }
-                        }
-                        MockStateOverlay()
-                    }
-                }
-            }
-
-            // TODO: Replace with Banner components (don't exist yet)
-            MockSimpleBanner()
-            MockFullBanner()
-        }
-        Column(
-            verticalArrangement = Arrangement.spacedBy(72.dp),
-            modifier = Modifier
-                .preferredWidth(360.dp)
-                .fillMaxHeight()
-        ) {
-            Row(
-                modifier = Modifier
-                        .fillMaxWidth()
-                        .preferredHeight(190.dp)
-            ) {
-                ConversionCard()
-                Spacer(modifier = Modifier.preferredWidth(24.dp))
-                ConversionCard(active = true)
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Card(modifier = Modifier
-                        .weight(1f)
-                        .preferredHeight(98.dp)
-                ) {
-                    emptyContent()
-                }
-                Spacer(modifier = Modifier.preferredWidth(16.dp))
-                Card(modifier = Modifier
-                        .weight(1f)
-                        .preferredHeight(98.dp)
-                ) {
                     MockStateOverlay()
                 }
             }
+        }
 
-            Row(modifier = Modifier
-                    .padding(16.dp)
+        // TODO: Replace with Banner components (don't exist yet)
+        MockSimpleBanner()
+        MockFullBanner()
+    }
+}
+
+@Composable
+fun BaselineComponents4() {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(72.dp),
+        modifier = Modifier
+                .preferredWidth(360.dp)
+                .fillMaxHeight()
+    ) {
+        Row(modifier = Modifier
                     .fillMaxWidth()
-            ) {
-                MockImageListItem()
-                Spacer(modifier = Modifier.preferredWidth(16.dp))
-                MockImageListItem(active = true)
-            }
+                    .preferredHeight(190.dp)
+        ) {
+            ConversionCard()
+            Spacer(modifier = Modifier.preferredWidth(24.dp))
+            ConversionCard(active = true)
+        }
 
-            // TODO: Replace with real Chip and ChipGroup when components exist
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    MockChip(selected = true) {
-                        Spacer(modifier = Modifier.preferredWidth(6.dp))
-                        MockImage(modifier = Modifier
-                                .clip(CircleShape)
-                                .preferredSize(18.dp)
-                        )
-                        Spacer(modifier = Modifier.preferredWidth(8.dp))
-                        Text(text = "Enabled")
-                    }
-                    MockChip {
-                        Spacer(modifier = Modifier.preferredWidth(6.dp))
-                        Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
-                        Spacer(modifier = Modifier.preferredWidth(8.dp))
-                        Text(text = "Enabled")
-                    }
-                    MockChip {
-                        Spacer(modifier = Modifier.preferredWidth(6.dp))
-                        MockImage(modifier = Modifier
-                                .clip(CircleShape)
-                                .preferredSize(18.dp)
-                        )
-                        Spacer(modifier = Modifier.preferredWidth(8.dp))
-                        Text(text = "Enabled")
-                    }
-                }
-                Spacer(modifier = Modifier.preferredHeight(8.dp))
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    MockChip(selected = true) {
-                        Spacer(modifier = Modifier.preferredWidth(6.dp))
-                        MockImage(modifier = Modifier
-                                .clip(CircleShape)
-                                .preferredSize(18.dp)
-                        )
-                        Spacer(modifier = Modifier.preferredWidth(8.dp))
-                        Text(text = "Enabled")
-                    }
-                    MockChip {
-                        Spacer(modifier = Modifier.preferredWidth(6.dp))
-                        Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
-                        Spacer(modifier = Modifier.preferredWidth(8.dp))
-                        Text(text = "Enabled")
-                    }
-                    MockChip {
-                        Spacer(modifier = Modifier.preferredWidth(6.dp))
-                        MockImage(modifier = Modifier
-                                .clip(CircleShape)
-                                .preferredSize(18.dp)
-                        )
-                        Spacer(modifier = Modifier.preferredWidth(8.dp))
-                        Text(text = "Enabled")
-                    }
-                }
-            }
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalGravity = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                // TODO: Button text is ALL CAPS in Figma stickersheet
-                TextButton(onClick = {}) {
-                    Text(text = "Enabled".toUpperCase())
-                }
-                OutlinedButton(onClick = {}) {
-                    Text(text = "Enabled".toUpperCase())
-                }
-                Button(onClick = {}) {
-                    Icon(asset = Icons.Default.Add)
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
-                    Text(text = "Enabled".toUpperCase())
-                }
-            }
-
-            Surface(
-                modifier = Modifier
-                        .fillMaxWidth()
-                        .preferredHeight(247.dp),
-                elevation = 4.dp
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Card(modifier = Modifier
+                    .weight(1f)
+                    .preferredHeight(98.dp)
             ) {
                 emptyContent()
             }
-
-            BottomNavIconAndText()
+            Spacer(modifier = Modifier.preferredWidth(16.dp))
+            Card(modifier = Modifier
+                    .weight(1f)
+                    .preferredHeight(98.dp)
+            ) {
+                MockStateOverlay()
+            }
         }
+
+        Row(modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
+        ) {
+            MockImageListItem()
+            Spacer(modifier = Modifier.preferredWidth(16.dp))
+            MockImageListItem(active = true)
+        }
+
+        // TODO: Replace with real Chip and ChipGroup when components exist
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                MockChip(selected = true) {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    MockImage(modifier = Modifier
+                            .clip(CircleShape)
+                            .preferredSize(18.dp)
+                    )
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+                MockChip {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+                MockChip {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    MockImage(modifier = Modifier
+                            .clip(CircleShape)
+                            .preferredSize(18.dp)
+                    )
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+            }
+            Spacer(modifier = Modifier.preferredHeight(8.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                MockChip(selected = true) {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    MockImage(modifier = Modifier
+                            .clip(CircleShape)
+                            .preferredSize(18.dp)
+                    )
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+                MockChip {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+                MockChip {
+                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    MockImage(modifier = Modifier
+                            .clip(CircleShape)
+                            .preferredSize(18.dp)
+                    )
+                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Text(text = "Enabled")
+                }
+            }
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalGravity = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            // TODO: Button text is ALL CAPS in Figma stickersheet
+            TextButton(onClick = {}) {
+                Text(text = "Enabled".toUpperCase())
+            }
+            OutlinedButton(onClick = {}) {
+                Text(text = "Enabled".toUpperCase())
+            }
+            Button(onClick = {}) {
+                Icon(asset = Icons.Default.Add)
+                Spacer(modifier = Modifier.preferredWidth(8.dp))
+                Text(text = "Enabled".toUpperCase())
+            }
+        }
+
+        Surface(
+            modifier = Modifier
+                    .fillMaxWidth()
+                    .preferredHeight(247.dp),
+            elevation = 4.dp
+        ) {
+            emptyContent()
+        }
+
+        BottomNavIconAndText()
     }
 }
 
@@ -902,12 +904,42 @@ fun MockImageListItem(active: Boolean = false) {
     }
 }
 
-@Preview(showBackground = true, heightDp = 2800, widthDp = 1782, name = "Material Theme")
+@Preview(showBackground = true, heightDp = 2000)
 @Composable
-fun BaselineStandalone() {
+fun Baseline1() {
     MaterialStickersheetsTheme {
-        Artboard(name = "Baseline components") {
-            BaselineComponents()
+        Column(modifier = Modifier.padding(36.dp)) {
+            BaselineComponents1()
+        }
+    }
+}
+
+@Preview(showBackground = true, heightDp = 2000)
+@Composable
+fun Baseline2() {
+    MaterialStickersheetsTheme {
+        Column(modifier = Modifier.padding(36.dp)) {
+            BaselineComponents2()
+        }
+    }
+}
+
+@Preview(showBackground = true, heightDp = 2000)
+@Composable
+fun Baseline3() {
+    MaterialStickersheetsTheme {
+        Column(modifier = Modifier.padding(36.dp)) {
+            BaselineComponents3()
+        }
+    }
+}
+
+@Preview(showBackground = true, heightDp = 2000)
+@Composable
+fun Baseline4() {
+    MaterialStickersheetsTheme {
+        Column(modifier = Modifier.padding(36.dp)) {
+            BaselineComponents4()
         }
     }
 }
