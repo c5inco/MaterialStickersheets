@@ -32,6 +32,8 @@ fun BaselineComponents1() {
             .fillMaxHeight()
             //.gravity(Alignment.CenterVertically) // TODO: Doesn't work in Preview, but works on device
     ) {
+        BaselineScreen1()
+        Spacer(modifier = Modifier.preferredHeight(72.dp))
         Column {
             MockStatusbar(
                 backgroundColor = MaterialTheme.colors.primary,
@@ -659,6 +661,24 @@ fun ConversionCard(active: Boolean = false) {
     }
 }
 
+@Composable
+fun CardTwoElementsTemplate() {
+    Row(
+        verticalGravity = Alignment.CenterVertically,
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
+    ) {
+        MockImage(modifier = Modifier
+            .preferredSize(40.dp)
+            .clip(CircleShape)
+        )
+        Spacer(modifier = Modifier.preferredWidth(16.dp))
+        Column {
+            Text(text = "Headline 6", style = MaterialTheme.typography.h6)
+            Text(text = "Body 2", style = MaterialTheme.typography.body2)
+        }
+    }
+}
+
 // TODO: Quick re-implementation of BottomSheet component
 @Composable
 fun MockBottomSheet() {
@@ -671,20 +691,7 @@ fun MockBottomSheet() {
     ) {
         Surface(modifier = Modifier.fillMaxWidth(), elevation = 16.dp) {
             Column {
-                Row(
-                    verticalGravity = Alignment.CenterVertically,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
-                ) {
-                    MockImage(modifier = Modifier
-                            .preferredSize(40.dp)
-                            .clip(CircleShape)
-                    )
-                    Spacer(modifier = Modifier.preferredWidth(16.dp))
-                    Column {
-                        Text(text = "Headline 6", style = MaterialTheme.typography.h6)
-                        Text(text = "Body 2", style = MaterialTheme.typography.body2)
-                    }
-                }
+                CardTwoElementsTemplate()
                 Divider()
                 Column {
                     MockBottomSheetItem()
@@ -904,10 +911,97 @@ fun MockImageListItem(active: Boolean = false) {
     }
 }
 
+@Composable
+fun BaselineScreen1() {
+    Column(modifier = Modifier
+        .preferredHeight(640.dp)
+        .preferredWidth(360.dp)
+    ) {
+        MockStatusbar()
+        Scaffold(
+            bottomBar = {
+                BottomAppBar {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier
+                            .padding(horizontal = 12.dp)
+                            .fillMaxWidth()
+                    ) {
+                        // TODO: Icons are high emphasis, not medium like in Figma
+                        ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                            Icon(asset = Icons.Default.Menu)
+                            Row {
+                                Icon(asset = Icons.Default.Share)
+                                Spacer(modifier = Modifier.preferredWidth(24.dp))
+                                Icon(asset = Icons.Default.Search)
+                            }
+                        }
+                    }
+                }
+            },
+            floatingActionButton = {
+                FloatingActionButton(onClick = {}) {
+                    Icon(asset = Icons.Default.Add)
+                }
+            },
+            floatingActionButtonPosition = FabPosition.Center,
+            isFloatingActionButtonDocked = true
+        ) {
+            ScrollableColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(8.dp)
+            ){
+                for (x in 0..1) {
+                    Card(
+                        elevation = 1.dp
+                    ) {
+                        Column {
+                            CardTwoElementsTemplate()
+                            Column(modifier = Modifier.padding(horizontal = 4.dp)) {
+                                MockImage(modifier = Modifier
+                                    .preferredHeight(168.dp)
+                                    .fillMaxWidth()
+                                )
+                                Spacer(modifier = Modifier.preferredHeight(4.dp))
+                                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                                    for (x in 0..2) {
+                                        MockImage(modifier = Modifier
+                                            .preferredHeight(112.dp)
+                                            .weight(1f)
+                                        )
+                                    }
+                                }
+                            }
+                            Spacer(modifier = Modifier.preferredHeight(12.dp))
+                            Text(
+                                text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
+                                style = MaterialTheme.typography.body2,
+                                modifier = Modifier.padding(horizontal = 8.dp)
+                            )
+                            Spacer(modifier = Modifier.preferredHeight(12.dp))
+                            Row(modifier = Modifier.padding(8.dp)) {
+                                TextButton(onClick = {}) {
+                                    Text(text = "Button".toUpperCase())
+                                }
+                                Spacer(modifier = Modifier.preferredWidth(16.dp))
+                                TextButton(onClick = {}) {
+                                    Text(text = "Button".toUpperCase())
+                                }
+                            }
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.preferredHeight(100.dp))
+            }
+        }
+    }
+}
+
+
 @Preview(showBackground = true, heightDp = 2000)
 @Composable
 fun Baseline1() {
-    MaterialStickersheetsTheme {
+    MaterialStickersheetsTheme(darkTheme = true) {
         Column(modifier = Modifier.padding(36.dp)) {
             BaselineComponents1()
         }
