@@ -94,14 +94,19 @@ fun BaselineComponents1() {
             TopAppBar(
                 title = { Text(text ="Page title") },
                 navigationIcon = {
-                    Icon(asset = Icons.Default.Menu)
+                    Icon(
+                        asset = Icons.Default.Menu,
+                        modifier = Modifier.padding(start = 12.dp)
+                    )
                 },
                 actions = {
-                    Icon(asset = Icons.Default.Notifications)
-                    Spacer(modifier = Modifier.preferredWidth(24.dp))
-                    Icon(asset = Icons.Default.Notifications)
-                    Spacer(modifier = Modifier.preferredWidth(24.dp))
-                    Icon(asset = Icons.Default.Notifications)
+                    Row(modifier = Modifier.padding(end = 12.dp)) {
+                        Icon(asset = Icons.Default.Notifications)
+                        Spacer(modifier = Modifier.preferredWidth(24.dp))
+                        Icon(asset = Icons.Default.Notifications)
+                        Spacer(modifier = Modifier.preferredWidth(24.dp))
+                        Icon(asset = Icons.Default.Notifications)
+                    }
                 }
             )
         }
@@ -109,7 +114,7 @@ fun BaselineComponents1() {
         Scaffold(
             bottomBar = {
                 BottomAppBar {
-                    Row {
+                    Row(modifier = Modifier.padding(horizontal = 12.dp)) {
                         // TODO: Icons are high emphasis, not medium like in Figma
                         ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
                             Icon(asset = Icons.Default.Menu)
@@ -1052,7 +1057,7 @@ fun BaselineScreen1() {
 @Preview(showBackground = true, heightDp = 2000)
 @Composable
 fun Baseline1() {
-    MaterialStickersheetsTheme(darkTheme = true) {
+    MaterialStickersheetsTheme() {
         Column(modifier = Modifier.padding(36.dp)) {
             BaselineComponents1()
         }
