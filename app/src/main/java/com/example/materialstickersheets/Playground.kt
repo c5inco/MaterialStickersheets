@@ -31,7 +31,7 @@ fun PlaygroundPreview() {
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
-            horizontalGravity = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(20.dp)
         ) {
             Image(

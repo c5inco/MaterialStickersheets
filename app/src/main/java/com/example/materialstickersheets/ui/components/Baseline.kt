@@ -220,7 +220,7 @@ fun BaselineComponents2() {
         )
 
         Row(
-            verticalGravity = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
             var sliderPos by remember { mutableStateOf(0.3f) }
@@ -438,7 +438,7 @@ fun BaselineComponents4() {
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            verticalGravity = Alignment.CenterVertically,
+            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             // TODO: Button text is ALL CAPS in Figma stickersheet
@@ -489,7 +489,7 @@ fun BottomNavIconAndText() {
                 icon = { Icon(asset = tab.icon) },
                 label = { Text(text = tab.title) },
                 selected = tab == selectedTab,
-                onSelect = { setSelectedTab(tab) }
+                onClick = { setSelectedTab(tab) }
             )
         }
     }
@@ -604,7 +604,7 @@ fun MockChip(
                 .preferredHeight(32.dp)
                 .wrapContentWidth()
     ) {
-        Row(verticalGravity = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             content()
             Spacer(modifier = if (selected) Modifier.preferredWidth(8.dp) else Modifier.preferredWidth(12.dp))
 
@@ -641,7 +641,7 @@ fun ConversionCard(active: Boolean = false) {
 
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(2.dp),
-                    verticalGravity = Alignment.Bottom
+                    verticalAlignment = Alignment.Bottom
                 ) {
                     barValues.forEach { value ->
                         // TODO: Expected clip modifier to go after background
@@ -664,7 +664,7 @@ fun ConversionCard(active: Boolean = false) {
 @Composable
 fun CardTwoElementsTemplate() {
     Row(
-        verticalGravity = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
     ) {
         MockImage(modifier = Modifier
@@ -711,7 +711,7 @@ private fun MockBottomSheetItem(active: Boolean = false) {
     val currentModifier = if (active) Modifier.background(color = MaterialTheme.colors.primary.copy(alpha = 0.08f)) else Modifier
 
     Row(
-        verticalGravity = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically,
         modifier = currentModifier
                 .padding(horizontal = 16.dp)
                 .preferredHeight(48.dp)
@@ -746,7 +746,7 @@ fun MockMenu() {
 private fun MockMenuItem() {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalGravity = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .preferredHeight(48.dp)
@@ -816,7 +816,7 @@ fun MockSimpleBanner() {
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(
-                verticalGravity = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                         .padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 8.dp)
                         .fillMaxWidth()
@@ -848,7 +848,7 @@ fun MockFullBanner() {
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(
-                verticalGravity = Alignment.CenterVertically,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                         .padding(start = 16.dp, top = 16.dp, bottom = 12.dp, end = 16.dp)
                         .fillMaxWidth()
