@@ -1,14 +1,66 @@
 package com.example.materialstickersheets.ui.components
 
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.RowScope.weight
+import androidx.compose.foundation.Icon
+import androidx.compose.foundation.ScrollableColumn
+import androidx.compose.foundation.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.contentColor
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.preferredHeightIn
+import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.preferredWidth
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Button
+import androidx.compose.material.Card
+import androidx.compose.material.Divider
+import androidx.compose.material.EmphasisAmbient
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.ListItem
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.ProvideEmphasis
+import androidx.compose.material.RadioButton
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Slider
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarConstants
+import androidx.compose.material.Surface
+import androidx.compose.material.Tab
+import androidx.compose.material.TabRow
+import androidx.compose.material.TextButton
+import androidx.compose.material.TextField
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.emptyContent
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -308,7 +360,7 @@ fun BaselineComponents3() {
             }
             Spacer(modifier = Modifier.preferredWidth(16.dp))
             Card(modifier = Modifier.weight(1f)) {
-                Stack {
+                Box {
                     Column {
                         MockImage(modifier = Modifier
                                 .preferredHeight(172.dp)
@@ -343,9 +395,9 @@ fun BaselineComponents4() {
                     .fillMaxWidth()
                     .preferredHeight(190.dp)
         ) {
-            ConversionCard()
+            ConversionCard(modifier = Modifier.weight(1f))
             Spacer(modifier = Modifier.preferredWidth(24.dp))
-            ConversionCard(active = true)
+            ConversionCard(modifier = Modifier.weight(1f), active = true)
         }
 
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -368,9 +420,9 @@ fun BaselineComponents4() {
                 .padding(16.dp)
                 .fillMaxWidth()
         ) {
-            MockImageListItem()
+            MockImageListItem(modifier = Modifier.weight(1f))
             Spacer(modifier = Modifier.preferredWidth(16.dp))
-            MockImageListItem(active = true)
+            MockImageListItem(modifier = Modifier.weight(1f), active = true)
         }
 
         // TODO: Replace with real Chip and ChipGroup when components exist
@@ -621,9 +673,9 @@ fun MockChip(
 }
 
 @Composable
-fun ConversionCard(active: Boolean = false) {
-    Card(modifier = Modifier.weight(1f)) {
-        Stack {
+fun ConversionCard(modifier: Modifier = Modifier, active: Boolean = false) {
+    Card(modifier = modifier) {
+        Box {
             Column(modifier = Modifier.padding(16.dp)) {
                 ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
                     Text(text = "Conversion")
@@ -884,10 +936,9 @@ fun MockFullBanner() {
 
 // TODO: Quick re-implementation of ImageListItem
 @Composable
-fun MockImageListItem(active: Boolean = false) {
-    Stack(modifier = Modifier
+fun MockImageListItem(modifier: Modifier = Modifier, active: Boolean = false) {
+    Box(modifier = modifier
             .preferredHeight(207.dp)
-            .weight(1f)
     ) {
         MockImage(modifier = Modifier.fillMaxSize())
         Column(
