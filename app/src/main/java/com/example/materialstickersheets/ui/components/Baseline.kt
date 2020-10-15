@@ -1,10 +1,10 @@
 package com.example.materialstickersheets.ui.components
 
+import androidx.compose.foundation.AmbientContentColor
 import androidx.compose.foundation.Icon
 import androidx.compose.foundation.ScrollableColumn
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
-import androidx.compose.foundation.contentColor
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,13 +21,13 @@ import androidx.compose.foundation.layout.preferredWidth
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.AmbientEmphasisLevels
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
-import androidx.compose.material.EmphasisAmbient
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.ListItem
@@ -72,6 +72,7 @@ import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.example.materialstickersheets.R
 import com.example.materialstickersheets.ui.themes.MaterialStickersheetsTheme
+import java.util.Locale
 
 @Composable
 fun BaselineComponents1() {
@@ -116,7 +117,7 @@ fun BaselineComponents1() {
                 BottomAppBar {
                     Row(modifier = Modifier.padding(horizontal = 12.dp)) {
                         // TODO: Icons are high emphasis, not medium like in Figma
-                        ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                        ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                             Icon(asset = Icons.Default.Menu)
                             Spacer(modifier = Modifier.preferredWidth(24.dp))
                             Icon(asset = Icons.Default.Search)
@@ -281,7 +282,7 @@ fun BaselineComponents2() {
             modifier = Modifier.fillMaxWidth()
         ) {
             var sliderPos by remember { mutableStateOf(0.3f) }
-            Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
+            Icon(asset = Icons.Default.Favorite, tint = AmbientEmphasisLevels.current.medium.applyEmphasis(AmbientContentColor.current))
             Slider(
                     value = sliderPos,
                     onValueChange = { sliderPos = it },
@@ -289,7 +290,7 @@ fun BaselineComponents2() {
                             .weight(1.0f)
                             .padding(horizontal = 16.dp)
             )
-            Icon(asset = Icons.Default.Favorite, tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor()))
+            Icon(asset = Icons.Default.Favorite, tint = AmbientEmphasisLevels.current.medium.applyEmphasis(AmbientContentColor.current))
         }
     }
 }
@@ -311,7 +312,7 @@ fun BaselineComponents3() {
         // TODO: Not clear if Action slot is using accent color by default
         Snackbar(
                 text = { Text("Two lines with one action. One to two lines is preferable on mobile") },
-                action = { Text(text = "Action".toUpperCase(), color = SnackbarConstants.defaultActionPrimaryColor) },
+                action = { Text(text = "Action".toUpperCase(Locale.ROOT), color = SnackbarConstants.defaultActionPrimaryColor) },
         )
         /*
         val iconButton = @Composable {
@@ -500,15 +501,15 @@ fun BaselineComponents4() {
         ) {
             // TODO: Button text is ALL CAPS in Figma stickersheet
             TextButton(onClick = {}) {
-                Text(text = "Enabled".toUpperCase())
+                Text(text = "Enabled".toUpperCase(Locale.ROOT))
             }
             OutlinedButton(onClick = {}) {
-                Text(text = "Enabled".toUpperCase())
+                Text(text = "Enabled".toUpperCase(Locale.ROOT))
             }
             Button(onClick = {}) {
                 Icon(asset = Icons.Default.Add)
                 Spacer(modifier = Modifier.preferredWidth(8.dp))
-                Text(text = "Enabled".toUpperCase())
+                Text(text = "Enabled".toUpperCase(Locale.ROOT))
             }
         }
 
@@ -572,7 +573,7 @@ fun TabsIconAndText() {
             tabs.forEachIndexed { index, tab ->
                 Tab(
                     icon = { Icon(asset = tab.icon ) },
-                    text = { Text(text = tab.title.toUpperCase()) },
+                    text = { Text(text = tab.title.toUpperCase(Locale.ROOT)) },
                     selected = index == selectedTab,
                     onClick = { setSelectedTab(index) }
                 )
@@ -589,7 +590,7 @@ fun TabsIconOnly() {
     TabRow(
         selectedTabIndex = selectedTab,
         tabs = {
-            tabs.forEachIndexed { index, tab ->
+            tabs.forEachIndexed { index, _ ->
                 Tab(
                     icon = { Icon(asset = Tabs.Notification.icon ) },
                     selected = index == selectedTab,
@@ -603,7 +604,7 @@ fun TabsIconOnly() {
 
 @Composable
 fun MockThreeLineListItem() {
-    // TODO: Expected EmphasisAmbient call to apply medium color
+    // TODO: Expected AmbientEmphasisLevels call to apply medium color
     // TODO: Start padding is not present in Figma stickersheet
     // TODO: Have to draw Dividers manually, might be better to include in component
     //      for content sizing reasons relative to startIndent
@@ -620,7 +621,7 @@ fun MockThreeLineListItem() {
             trailing = {
                 Icon(
                         asset = vectorResource(id = R.drawable.ic_bookmark),
-                        tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor())
+                        tint = AmbientEmphasisLevels.current.medium.applyEmphasis(AmbientContentColor.current)
                 )
             }
         )
@@ -669,7 +670,7 @@ fun MockChip(
                 Icon(
                     asset = vectorResource(id = R.drawable.ic_cancel),
                     modifier = Modifier.preferredSize(18.dp),
-                    tint = EmphasisAmbient.current.medium.applyEmphasis(contentColor())
+                    tint = AmbientEmphasisLevels.current.medium.applyEmphasis(AmbientContentColor.current)
                 )
                 Spacer(modifier = Modifier.preferredWidth(8.dp))
             }
@@ -682,13 +683,13 @@ fun ConversionCard(modifier: Modifier = Modifier, active: Boolean = false) {
     Card(modifier = modifier) {
         Box {
             Column(modifier = Modifier.padding(16.dp)) {
-                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                     Text(text = "Conversion")
                 }
                 Spacer(modifier = Modifier.preferredHeightIn(12.dp))
                 Text(text = "537", style = MaterialTheme.typography.h4)
                 Spacer(modifier = Modifier.preferredHeightIn(6.dp))
-                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                     Text(text = "+22% of target", style = MaterialTheme.typography.body2)
                 }
                 Spacer(modifier = Modifier.preferredHeightIn(8.dp))
@@ -764,7 +765,7 @@ fun MockBottomSheet() {
 
 @Composable
 private fun MockBottomSheetItem(active: Boolean = false) {
-    val currentTint = if(active) MaterialTheme.colors.primary else EmphasisAmbient.current.medium.applyEmphasis(contentColor())
+    val currentTint = if(active) MaterialTheme.colors.primary else AmbientEmphasisLevels.current.medium.applyEmphasis(AmbientContentColor.current)
     val currentModifier = if (active) Modifier.background(color = MaterialTheme.colors.primary.copy(alpha = 0.08f)) else Modifier
 
     Row(
@@ -837,7 +838,7 @@ fun MockAlertDialog() {
             ){
                 Text(text = "Headline 6", style = MaterialTheme.typography.h6)
                 Spacer(modifier = Modifier.preferredHeight(16.dp))
-                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                     Text(
                         text = "Subtitle 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
                         style = MaterialTheme.typography.subtitle1
@@ -853,10 +854,10 @@ fun MockAlertDialog() {
             )
             {
                 TextButton(onClick = {}) {
-                    Text(text = "Button".toUpperCase())
+                    Text(text = "Button".toUpperCase(Locale.ROOT))
                 }
                 TextButton(onClick = {}) {
-                    Text(text = "Button".toUpperCase())
+                    Text(text = "Button".toUpperCase(Locale.ROOT))
                 }
             }
         }
@@ -878,7 +879,7 @@ fun MockSimpleBanner() {
                         .padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 8.dp)
                         .fillMaxWidth()
             ) {
-                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                     Text(
                         text = "One line text string with one action",
                         modifier = Modifier.weight(1f),
@@ -887,7 +888,7 @@ fun MockSimpleBanner() {
                 }
                 Spacer(modifier = Modifier.preferredWidth(36.dp))
                 TextButton(onClick = {}) {
-                    Text(text = "Action".toUpperCase())
+                    Text(text = "Action".toUpperCase(Locale.ROOT))
                 }
             }
             Divider()
@@ -912,7 +913,7 @@ fun MockFullBanner() {
             ){
                 MockImage(modifier = Modifier.clip(CircleShape).preferredSize(40.dp))
                 Spacer(modifier = Modifier.preferredWidth(16.dp))
-                ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                     Text(
                         text = "Two line text string with two actions. One to two lines is preferable on mobile",
                         modifier = Modifier.weight(1f),
@@ -928,10 +929,10 @@ fun MockFullBanner() {
             )
             {
                 TextButton(onClick = {}) {
-                    Text(text = "Action".toUpperCase())
+                    Text(text = "Action".toUpperCase(Locale.ROOT))
                 }
                 TextButton(onClick = {}) {
-                    Text(text = "Action".toUpperCase())
+                    Text(text = "Action".toUpperCase(Locale.ROOT))
                 }
             }
             Divider()
@@ -984,7 +985,7 @@ fun BaselineScreen1() {
                             .fillMaxWidth()
                     ) {
                         // TODO: Icons are high emphasis, not medium like in Figma
-                        ProvideEmphasis(emphasis = EmphasisAmbient.current.medium) {
+                        ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                             Icon(asset = Icons.Default.Menu)
                             Row {
                                 Icon(asset = Icons.Default.Share)
@@ -1020,7 +1021,7 @@ fun BaselineScreen1() {
                                 )
                                 Spacer(modifier = Modifier.preferredHeight(4.dp))
                                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                    for (x in 0..2) {
+                                    for (y in 0..2) {
                                         MockImage(modifier = Modifier
                                             .preferredHeight(112.dp)
                                             .weight(1f)
@@ -1037,11 +1038,11 @@ fun BaselineScreen1() {
                             Spacer(modifier = Modifier.preferredHeight(12.dp))
                             Row(modifier = Modifier.padding(8.dp)) {
                                 TextButton(onClick = {}) {
-                                    Text(text = "Button".toUpperCase())
+                                    Text(text = "Button".toUpperCase(Locale.ROOT))
                                 }
                                 Spacer(modifier = Modifier.preferredWidth(16.dp))
                                 TextButton(onClick = {}) {
-                                    Text(text = "Button".toUpperCase())
+                                    Text(text = "Button".toUpperCase(Locale.ROOT))
                                 }
                             }
                         }
