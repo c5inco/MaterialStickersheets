@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.material.AmbientEmphasisLevels
 import androidx.compose.material.Divider
-import androidx.compose.material.EmphasisAmbient
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
@@ -69,7 +69,7 @@ fun MockStatusbar(
     ){
         Icon(
             asset = vectorResource(id = R.drawable.ic_status_icons),
-            tint = EmphasisAmbient.current.disabled.applyEmphasis(iconTint)
+            tint = AmbientEmphasisLevels.current.disabled.applyEmphasis(iconTint)
         )
     }
 }
