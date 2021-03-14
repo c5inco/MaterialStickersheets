@@ -1,30 +1,26 @@
 package com.example.materialstickersheets.ui.components
 
-import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ConstraintLayout
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
-import androidx.compose.material.AmbientEmphasisLevels
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.foundation.layout.height
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.materialstickersheets.R
 
 // TODO: Error banner show when no @Preview is included
@@ -37,11 +33,11 @@ fun Artboard(name: String, content: @Composable () -> Unit) {
     ) {
         Column(modifier = Modifier.padding(60.dp)) {
             Text(text = "Material Design", style = MaterialTheme.typography.h6)
-            Spacer(modifier = Modifier.preferredHeight(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             Text(text = name, style = MaterialTheme.typography.h3)
-            Spacer(modifier = Modifier.preferredHeight(200.dp))
+            Spacer(modifier = Modifier.height(200.dp))
             Divider(color = MaterialTheme.colors.onSurface)
-            Spacer(modifier = Modifier.preferredHeight(72.dp))
+            Spacer(modifier = Modifier.height(72.dp))
             content()
         }
     }
@@ -50,7 +46,8 @@ fun Artboard(name: String, content: @Composable () -> Unit) {
 @Composable
 fun MockImage(modifier: Modifier = Modifier) {
     Image(
-        asset = vectorResource(id = R.drawable.ic_blank_avatar),
+        painter = painterResource(id = R.drawable.ic_blank_avatar),
+        contentDescription = "Empty avatar",
         modifier = modifier.background(Color(0xffe6e6e6))
     )
 }
@@ -64,13 +61,17 @@ fun MockStatusbar(
         horizontalArrangement = Arrangement.End,
         modifier = Modifier
             .background(color = backgroundColor)
-            .preferredHeight(24.dp)
+            .height(24.dp)
             .fillMaxWidth()
     ){
-        Icon(
-            asset = vectorResource(id = R.drawable.ic_status_icons),
-            tint = AmbientEmphasisLevels.current.disabled.applyEmphasis(iconTint)
-        )
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_status_icons),
+                tint = iconTint,
+                contentDescription = "Status icon"
+            )
+        }
+
     }
 }
 
@@ -84,7 +85,8 @@ fun MockStateOverlay() {
         val (icon) = createRefs()
 
         Icon(
-            asset = Icons.Default.CheckCircle,
+            imageVector = Icons.Default.CheckCircle,
+            contentDescription = "Check circle icon",
             tint = MaterialTheme.colors.primary,
             modifier = Modifier.constrainAs(icon) {
                 top.linkTo(parent.top, margin = 8.dp)
@@ -97,8 +99,10 @@ fun MockStateOverlay() {
 @Preview(showBackground = true, widthDp = 360)
 @Composable
 fun HelpersPreview() {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        MockStatusbar()
-        MockStatusbar(backgroundColor = MaterialTheme.colors.primary, iconTint = MaterialTheme.colors.onPrimary)
+    MaterialTheme {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            MockStatusbar()
+            MockStatusbar(backgroundColor = MaterialTheme.colors.primary, iconTint = MaterialTheme.colors.onPrimary)
+        }
     }
 }

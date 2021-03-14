@@ -1,15 +1,15 @@
 package com.example.materialstickersheets.ui.components
 
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ConstraintLayout
-import androidx.compose.foundation.layout.preferredWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 
 @Composable
 fun Typography() {
@@ -43,7 +43,7 @@ private fun TypeRow(sample: String, spec: String, style: TextStyle = MaterialThe
             text = sample,
             style = MaterialTheme.typography.caption,
             modifier = Modifier
-                .preferredWidth(100.dp)
+                .width(100.dp)
                 .constrainAs(sampleText) {
                     //start.linkTo(parent.start)
                     baseline.linkTo(specText.baseline)

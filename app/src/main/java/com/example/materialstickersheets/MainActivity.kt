@@ -1,22 +1,18 @@
 package com.example.materialstickersheets
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
 import com.example.materialstickersheets.ui.components.Artboard
 import com.example.materialstickersheets.ui.components.BaselineComponents1
 import com.example.materialstickersheets.ui.components.BaselineComponents2
@@ -26,13 +22,14 @@ import com.example.materialstickersheets.ui.components.Typography
 import com.example.materialstickersheets.ui.themes.MaterialStickersheetsTheme
 
 class MainActivity : AppCompatActivity() {
+    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialStickersheetsTheme(darkTheme = true) {
                 // A surface container using the 'background' color from the theme
                 Surface {
-                    ScrollableColumn {
+                    Column {
                         Artboard(name = "Baseline components") {
                             Row(horizontalArrangement = Arrangement.spacedBy(72.dp)) {
                                 BaselineComponents1()
@@ -94,7 +91,7 @@ fun FunPreview() {
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .clip(CircleShape)
-            .preferredHeight(48.dp)
+            .height(48.dp)
             .fillMaxSize()
     ) {
         Text(text = "hello")

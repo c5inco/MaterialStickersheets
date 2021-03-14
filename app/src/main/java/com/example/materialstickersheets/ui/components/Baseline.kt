@@ -1,51 +1,11 @@
 package com.example.materialstickersheets.ui.components
 
-import androidx.compose.foundation.AmbientContentColor
-import androidx.compose.foundation.Icon
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
-import androidx.compose.foundation.layout.preferredHeightIn
-import androidx.compose.foundation.layout.preferredSize
-import androidx.compose.foundation.layout.preferredWidth
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.AmbientEmphasisLevels
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
-import androidx.compose.material.FabPosition
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.ListItem
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.ProvideEmphasis
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Slider
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarConstants
-import androidx.compose.material.Surface
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.TextButton
-import androidx.compose.material.TextField
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
@@ -55,25 +15,21 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.emptyContent
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.VectorAsset
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
 import com.example.materialstickersheets.R
 import com.example.materialstickersheets.ui.themes.MaterialStickersheetsTheme
 import java.util.Locale
 
+@ExperimentalMaterialApi
 @Composable
 fun BaselineComponents1() {
     // var showDialog by savedInstanceState { true }
@@ -81,12 +37,12 @@ fun BaselineComponents1() {
     Column(
         verticalArrangement = Arrangement.spacedBy(72.dp),
         modifier = Modifier
-            .preferredWidth(360.dp)
+            .width(360.dp)
             .fillMaxHeight()
             //.gravity(Alignment.CenterVertically) // TODO: Doesn't work in Preview, but works on device
     ) {
         BaselineScreen1()
-        Spacer(modifier = Modifier.preferredHeight(72.dp))
+        Spacer(modifier = Modifier.height(72.dp))
         Column {
             MockStatusbar(
                 backgroundColor = MaterialTheme.colors.primary,
@@ -96,17 +52,18 @@ fun BaselineComponents1() {
                 title = { Text(text ="Page title") },
                 navigationIcon = {
                     Icon(
-                        asset = Icons.Default.Menu,
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = "Menu icon",
                         modifier = Modifier.padding(start = 12.dp)
                     )
                 },
                 actions = {
                     Row(modifier = Modifier.padding(end = 12.dp)) {
-                        Icon(asset = Icons.Default.Notifications)
-                        Spacer(modifier = Modifier.preferredWidth(24.dp))
-                        Icon(asset = Icons.Default.Notifications)
-                        Spacer(modifier = Modifier.preferredWidth(24.dp))
-                        Icon(asset = Icons.Default.Notifications)
+                        Icon(imageVector = Icons.Default.Notifications, contentDescription = "Notifications icon")
+                        Spacer(modifier = Modifier.width(24.dp))
+                        Icon(imageVector = Icons.Default.Notifications, contentDescription = "Notifications icon")
+                        Spacer(modifier = Modifier.width(24.dp))
+                        Icon(imageVector = Icons.Default.Notifications, contentDescription = "Notifications icon")
                     }
                 }
             )
@@ -117,27 +74,27 @@ fun BaselineComponents1() {
                 BottomAppBar {
                     Row(modifier = Modifier.padding(horizontal = 12.dp)) {
                         // TODO: Icons are high emphasis, not medium like in Figma
-                        ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
-                            Icon(asset = Icons.Default.Menu)
-                            Spacer(modifier = Modifier.preferredWidth(24.dp))
-                            Icon(asset = Icons.Default.Search)
-                            Spacer(modifier = Modifier.preferredWidth(24.dp))
-                            Icon(asset = Icons.Default.Notifications)
-                            Spacer(modifier = Modifier.preferredWidth(24.dp))
-                            Icon(asset = Icons.Default.Share)
+                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                            Icon(imageVector = Icons.Default.Menu, contentDescription = "Icon")
+                            Spacer(modifier = Modifier.width(24.dp))
+                            Icon(imageVector = Icons.Default.Search, contentDescription = "Icon")
+                            Spacer(modifier = Modifier.width(24.dp))
+                            Icon(imageVector = Icons.Default.Notifications, contentDescription = "Icon")
+                            Spacer(modifier = Modifier.width(24.dp))
+                            Icon(imageVector = Icons.Default.Share, contentDescription = "Icon")
                         }
                     }
                 }
             },
                 floatingActionButton = {
                 FloatingActionButton(onClick = {}) {
-                    Icon(asset = Icons.Default.Add)
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Add icon")
                 }
             },
             floatingActionButtonPosition = FabPosition.End,
             isFloatingActionButtonDocked = true,
             backgroundColor = Color.Transparent,
-            modifier = Modifier.preferredHeight(84.dp)
+            modifier = Modifier.height(84.dp)
         ) {
 
         }
@@ -152,7 +109,7 @@ fun BaselineComponents1() {
 
         /*
         // TODO: Removing for now - doesn't work in preview since showDialog is in savedInstanceState
-        Spacer(modifier = Modifier.preferredHeight(72.dp))
+        Spacer(modifier = Modifier.height(72.dp))
         AlertDialog(
             onDismissRequest = { showDialog = false },
             title = {
@@ -194,14 +151,14 @@ fun BaselineComponents1() {
                 secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.") },
                 trailing = { Text(text = "01") }
             )
-            Spacer(modifier = Modifier.preferredHeight(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             Divider()
             ListItem(
                 text = { Text(text = "Subtitle 2") },
                 secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.") },
                 trailing = { Text(text = "02") }
             )
-            Spacer(modifier = Modifier.preferredHeight(12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             Divider()
         }
 
@@ -231,8 +188,8 @@ fun BaselineComponents2() {
     Column(
         verticalArrangement = Arrangement.spacedBy(72.dp),
         modifier = Modifier
-                .preferredWidth(360.dp)
-                .fillMaxHeight()
+            .width(360.dp)
+            .fillMaxHeight()
     ) {
         MockBottomSheet()
 
@@ -254,10 +211,10 @@ fun BaselineComponents2() {
         TextField(
             label = { Text("Label") },
             leadingIcon = {
-                Icon(asset = Icons.Default.Favorite)
+                Icon(imageVector = Icons.Default.Favorite, contentDescription = "Icon")
             },
             trailingIcon = {
-                Icon(asset = vectorResource(id = R.drawable.ic_visibility))
+                Icon(painter = painterResource(id = R.drawable.ic_visibility), contentDescription = "Icon")
             },
             value = TextFieldValue(),
             onValueChange = {},
@@ -267,10 +224,10 @@ fun BaselineComponents2() {
         TextField(
             label = { Text("Label") },
             leadingIcon = {
-                Icon(asset = Icons.Default.Favorite)
+                Icon(imageVector = Icons.Default.Favorite, contentDescription = "Icon")
             },
             trailingIcon = {
-                Icon(asset = vectorResource(id = R.drawable.ic_visibility))
+                Icon(painter = painterResource(id = R.drawable.ic_visibility), contentDescription = "Icon")
             },
             value = TextFieldValue(text = "Input text"),
             onValueChange = {},
@@ -282,15 +239,19 @@ fun BaselineComponents2() {
             modifier = Modifier.fillMaxWidth()
         ) {
             var sliderPos by remember { mutableStateOf(0.3f) }
-            Icon(asset = Icons.Default.Favorite, tint = AmbientEmphasisLevels.current.medium.applyEmphasis(AmbientContentColor.current))
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Icon(imageVector = Icons.Default.Favorite, contentDescription = "Icon")
+            }
             Slider(
                     value = sliderPos,
                     onValueChange = { sliderPos = it },
                     modifier = Modifier
-                            .weight(1.0f)
-                            .padding(horizontal = 16.dp)
+                        .weight(1.0f)
+                        .padding(horizontal = 16.dp)
             )
-            Icon(asset = Icons.Default.Favorite, tint = AmbientEmphasisLevels.current.medium.applyEmphasis(AmbientContentColor.current))
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                Icon(imageVector = Icons.Default.Favorite, contentDescription = "Icon")
+            }
         }
     }
 }
@@ -300,8 +261,8 @@ fun BaselineComponents3() {
     Column(
         verticalArrangement = Arrangement.spacedBy(72.dp),
         modifier = Modifier
-                .preferredWidth(360.dp)
-                .fillMaxHeight()
+            .width(360.dp)
+            .fillMaxHeight()
     ) {
         var sliderPos by remember { mutableStateOf(0.5f) }
         Slider(value = sliderPos, steps = 10, onValueChange = { sliderPos = it }, valueRange = 0f..1f)
@@ -311,9 +272,10 @@ fun BaselineComponents3() {
         // TODO: Three lines allowed at certain widths
         // TODO: Not clear if Action slot is using accent color by default
         Snackbar(
-                text = { Text("Two lines with one action. One to two lines is preferable on mobile") },
-                action = { Text(text = "Action".toUpperCase(Locale.ROOT), color = SnackbarConstants.defaultActionPrimaryColor) },
-        )
+            action = { Text(text = "Action".toUpperCase(Locale.ROOT), color = MaterialTheme.colors.primary) },
+        ) {
+            Text("Two lines with one action. One to two lines is preferable on mobile")
+        }
         /*
         val iconButton = @Composable {
             IconButton(onClick = {}) {
@@ -345,34 +307,34 @@ fun BaselineComponents3() {
             MockMenu()
         }
         Row(modifier = Modifier
-                .fillMaxWidth()
-                .preferredHeight(242.dp)
+            .fillMaxWidth()
+            .height(242.dp)
         ) {
             // TODO: Wonder if this Card layout should be a template?
             Card(modifier = Modifier.weight(1f)) {
                 Column {
                     Column(modifier = Modifier.background(color = Color(0x0fff00ff))) {
                         MockImage(modifier = Modifier
-                                .preferredHeight(172.dp)
+                                .height(172.dp)
                                 .fillMaxWidth()
                         )
                     }
-                    Divider(modifier = Modifier.preferredHeight(1.dp))
+                    Divider(modifier = Modifier.height(1.dp))
                     Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 11.dp)) {
                         Text(text = "Headline 6", style = MaterialTheme.typography.h6)
                         Text(text = "Body 2", style = MaterialTheme.typography.body2)
                     }
                 }
             }
-            Spacer(modifier = Modifier.preferredWidth(16.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             Card(modifier = Modifier.weight(1f)) {
                 Box {
                     Column {
                         MockImage(modifier = Modifier
-                                .preferredHeight(172.dp)
+                                .height(172.dp)
                                 .fillMaxWidth()
                         )
-                        Divider(modifier = Modifier.preferredHeight(1.dp))
+                        Divider(modifier = Modifier.height(1.dp))
                         Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 14.dp, bottom = 11.dp)) {
                             Text(text = "Headline 6", style = MaterialTheme.typography.h6)
                             Text(text = "Body 2", style = MaterialTheme.typography.body2)
@@ -394,29 +356,28 @@ fun BaselineComponents4() {
     Column(
         verticalArrangement = Arrangement.spacedBy(72.dp),
         modifier = Modifier
-                .preferredWidth(360.dp)
+                .width(360.dp)
                 .fillMaxHeight()
     ) {
         Row(modifier = Modifier
                     .fillMaxWidth()
-                    .preferredHeight(190.dp)
+                    .height(190.dp)
         ) {
             ConversionCard(modifier = Modifier.weight(1f))
-            Spacer(modifier = Modifier.preferredWidth(24.dp))
+            Spacer(modifier = Modifier.width(24.dp))
             ConversionCard(modifier = Modifier.weight(1f), active = true)
         }
 
         Row(modifier = Modifier.fillMaxWidth()) {
             Card(modifier = Modifier
                     .weight(1f)
-                    .preferredHeight(98.dp)
+                    .height(98.dp)
             ) {
-                emptyContent()
             }
-            Spacer(modifier = Modifier.preferredWidth(16.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             Card(modifier = Modifier
                     .weight(1f)
-                    .preferredHeight(98.dp)
+                    .height(98.dp)
             ) {
                 MockStateOverlay()
             }
@@ -427,7 +388,7 @@ fun BaselineComponents4() {
                 .fillMaxWidth()
         ) {
             MockImageListItem(modifier = Modifier.weight(1f))
-            Spacer(modifier = Modifier.preferredWidth(16.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             MockImageListItem(modifier = Modifier.weight(1f), active = true)
         }
 
@@ -438,57 +399,57 @@ fun BaselineComponents4() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 MockChip(selected = true) {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     MockImage(modifier = Modifier
                             .clip(CircleShape)
-                            .preferredSize(18.dp)
+                            .size(18.dp)
                     )
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(text = "Enabled")
                 }
                 MockChip {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
-                    Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Icon(imageVector = Icons.Default.Favorite, contentDescription = "Favorites icon", modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(text = "Enabled")
                 }
                 MockChip {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     MockImage(modifier = Modifier
                             .clip(CircleShape)
-                            .preferredSize(18.dp)
+                            .size(18.dp)
                     )
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(text = "Enabled")
                 }
             }
-            Spacer(modifier = Modifier.preferredHeight(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 MockChip(selected = true) {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     MockImage(modifier = Modifier
                             .clip(CircleShape)
-                            .preferredSize(18.dp)
+                            .size(18.dp)
                     )
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(text = "Enabled")
                 }
                 MockChip {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
-                    Icon(asset = Icons.Default.Favorite, modifier = Modifier.preferredSize(18.dp))
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Icon(imageVector = Icons.Default.Favorite, contentDescription = "Favorite icon", modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(text = "Enabled")
                 }
                 MockChip {
-                    Spacer(modifier = Modifier.preferredWidth(6.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     MockImage(modifier = Modifier
                             .clip(CircleShape)
-                            .preferredSize(18.dp)
+                            .size(18.dp)
                     )
-                    Spacer(modifier = Modifier.preferredWidth(8.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(text = "Enabled")
                 }
             }
@@ -507,8 +468,8 @@ fun BaselineComponents4() {
                 Text(text = "Enabled".toUpperCase(Locale.ROOT))
             }
             Button(onClick = {}) {
-                Icon(asset = Icons.Default.Add)
-                Spacer(modifier = Modifier.preferredWidth(8.dp))
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add icon")
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(text = "Enabled".toUpperCase(Locale.ROOT))
             }
         }
@@ -516,10 +477,9 @@ fun BaselineComponents4() {
         Surface(
             modifier = Modifier
                     .fillMaxWidth()
-                    .preferredHeight(247.dp),
+                    .height(247.dp),
             elevation = 4.dp
         ) {
-            emptyContent()
         }
 
         BottomNavIconAndText()
@@ -528,7 +488,7 @@ fun BaselineComponents4() {
 
 private enum class BottomNavTabs(
         val title: String = "Tab",
-        val icon: VectorAsset
+        val icon: ImageVector
 ) {
     Favorites(title = "Favorites", icon = Icons.Default.Favorite),
     Search(title = "Search", icon = Icons.Default.Search),
@@ -544,7 +504,7 @@ fun BottomNavIconAndText() {
     BottomNavigation {
         tabs.forEach { tab ->
             BottomNavigationItem(
-                icon = { Icon(asset = tab.icon) },
+                icon = { Icon(imageVector = tab.icon, contentDescription = "Tab") },
                 label = { Text(text = tab.title) },
                 selected = tab == selectedTab,
                 onClick = { setSelectedTab(tab) }
@@ -555,7 +515,7 @@ fun BottomNavIconAndText() {
 
 private enum class Tabs(
         val title: String = "Tab",
-        val icon: VectorAsset
+        val icon: ImageVector
 ) {
     Notification(icon = Icons.Default.Notifications),
     Favorites(icon = Icons.Default.Favorite),
@@ -572,7 +532,7 @@ fun TabsIconAndText() {
         tabs = {
             tabs.forEachIndexed { index, tab ->
                 Tab(
-                    icon = { Icon(asset = tab.icon ) },
+                    icon = { Icon(imageVector = tab.icon, contentDescription = "Tab" ) },
                     text = { Text(text = tab.title.toUpperCase(Locale.ROOT)) },
                     selected = index == selectedTab,
                     onClick = { setSelectedTab(index) }
@@ -592,7 +552,7 @@ fun TabsIconOnly() {
         tabs = {
             tabs.forEachIndexed { index, _ ->
                 Tab(
-                    icon = { Icon(asset = Tabs.Notification.icon ) },
+                    icon = { Icon(imageVector = Tabs.Notification.icon, contentDescription = "Tab" ) },
                     selected = index == selectedTab,
                     onClick = { setSelectedTab(index) }
                 )
@@ -602,6 +562,7 @@ fun TabsIconOnly() {
 }
 
 
+@ExperimentalMaterialApi
 @Composable
 fun MockThreeLineListItem() {
     // TODO: Expected AmbientEmphasisLevels call to apply medium color
@@ -613,22 +574,25 @@ fun MockThreeLineListItem() {
             text = { Text(text = "Three-line item") },
             icon = {
                 MockImage(modifier = Modifier
-                    .preferredHeight(56.dp)
-                    .preferredWidth(100.dp)
+                    .height(56.dp)
+                    .width(100.dp)
                 )
             },
             secondaryText = { Text(text = "Lorem ipsum dolor sit amet, consectetur ") },
             trailing = {
-                Icon(
-                        asset = vectorResource(id = R.drawable.ic_bookmark),
-                        tint = AmbientEmphasisLevels.current.medium.applyEmphasis(AmbientContentColor.current)
-                )
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_bookmark),
+                        contentDescription = "Bookmark icon",
+                    )
+                }
             }
         )
         Divider(startIndent = (100+20+12).dp)
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun RadioListItem(selected: Boolean = false, onSelect: () -> Unit) {
     // TODO: RadioButton color is set to primary in Figma stickersheet
@@ -638,7 +602,7 @@ fun RadioListItem(selected: Boolean = false, onSelect: () -> Unit) {
             icon = {
                 MockImage(modifier = Modifier
                         .clip(CircleShape)
-                        .preferredSize(40.dp)
+                        .size(40.dp)
                 )
             },
             trailing = { RadioButton(selected = selected, onClick = onSelect) }
@@ -659,20 +623,22 @@ fun MockChip(
         elevation = 0.dp,
         modifier = Modifier
                 .clip(RoundedCornerShape(percent = 50))
-                .preferredHeight(32.dp)
+                .height(32.dp)
                 .wrapContentWidth()
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             content()
-            Spacer(modifier = if (selected) Modifier.preferredWidth(8.dp) else Modifier.preferredWidth(12.dp))
+            Spacer(modifier = if (selected) Modifier.width(8.dp) else Modifier.width(12.dp))
 
             if (selected) {
-                Icon(
-                    asset = vectorResource(id = R.drawable.ic_cancel),
-                    modifier = Modifier.preferredSize(18.dp),
-                    tint = AmbientEmphasisLevels.current.medium.applyEmphasis(AmbientContentColor.current)
-                )
-                Spacer(modifier = Modifier.preferredWidth(8.dp))
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_cancel),
+                        contentDescription = "Cancel icon",
+                        modifier = Modifier.size(18.dp),
+                    )
+                }
+                Spacer(modifier = Modifier.width(8.dp))
             }
         }
     }
@@ -683,16 +649,16 @@ fun ConversionCard(modifier: Modifier = Modifier, active: Boolean = false) {
     Card(modifier = modifier) {
         Box {
             Column(modifier = Modifier.padding(16.dp)) {
-                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                     Text(text = "Conversion")
                 }
-                Spacer(modifier = Modifier.preferredHeightIn(12.dp))
+                Spacer(modifier = Modifier.height(12.dp))
                 Text(text = "537", style = MaterialTheme.typography.h4)
-                Spacer(modifier = Modifier.preferredHeightIn(6.dp))
-                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
+                Spacer(modifier = Modifier.height(6.dp))
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                     Text(text = "+22% of target", style = MaterialTheme.typography.body2)
                 }
-                Spacer(modifier = Modifier.preferredHeightIn(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 val barValues = floatArrayOf(0.2f, 0.3f, 0.4f, 0.5f, 1f, 0.8f, 0.5f)
                 val maxBarHeight = 44f
@@ -704,9 +670,9 @@ fun ConversionCard(modifier: Modifier = Modifier, active: Boolean = false) {
                     barValues.forEach { value ->
                         // TODO: Expected clip modifier to go after background
                         Column(modifier = Modifier
-                                .clip(RoundedCornerShape(topLeft = 2.dp, topRight = 2.dp))
+                                .clip(RoundedCornerShape(topStart = 2.dp, topEnd = 2.dp))
                                 .background(MaterialTheme.colors.primary)
-                                .preferredHeight((maxBarHeight * value).dp)
+                                .height((maxBarHeight * value).dp)
                                 .weight(1f)
                         ) {}
                     }
@@ -726,10 +692,10 @@ fun CardTwoElementsTemplate() {
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
     ) {
         MockImage(modifier = Modifier
-            .preferredSize(40.dp)
+            .size(40.dp)
             .clip(CircleShape)
         )
-        Spacer(modifier = Modifier.preferredWidth(16.dp))
+        Spacer(modifier = Modifier.width(16.dp))
         Column {
             Text(text = "Headline 6", style = MaterialTheme.typography.h6)
             Text(text = "Body 2", style = MaterialTheme.typography.body2)
@@ -743,7 +709,7 @@ fun MockBottomSheet() {
     Column(
         verticalArrangement = Arrangement.Bottom,
         modifier = Modifier
-                .preferredHeight(644.dp)
+                .height(644.dp)
                 .fillMaxSize()
                 .background(color = Color(0x52000000))
     ) {
@@ -765,19 +731,29 @@ fun MockBottomSheet() {
 
 @Composable
 private fun MockBottomSheetItem(active: Boolean = false) {
-    val currentTint = if(active) MaterialTheme.colors.primary else AmbientEmphasisLevels.current.medium.applyEmphasis(AmbientContentColor.current)
+    val currentTint = if(active) MaterialTheme.colors.primary else contentColorFor(backgroundColor = MaterialTheme.colors.surface)
     val currentModifier = if (active) Modifier.background(color = MaterialTheme.colors.primary.copy(alpha = 0.08f)) else Modifier
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = currentModifier
                 .padding(horizontal = 16.dp)
-                .preferredHeight(48.dp)
+                .height(48.dp)
                 .fillMaxWidth()
     ) {
-        Icon(asset = Icons.Default.Favorite, tint = currentTint)
-        Spacer(modifier = Modifier.preferredWidth(32.dp))
-        Text(text = "Subtitle 2", style = MaterialTheme.typography.subtitle2, color = currentTint)
+        CompositionLocalProvider(LocalContentAlpha provides (if (active) 1.00f else ContentAlpha.medium)) {
+            Icon(
+                imageVector = Icons.Default.Favorite,
+                contentDescription = "Favorite icon",
+                tint = currentTint
+            )
+            Spacer(modifier = Modifier.width(32.dp))
+            Text(
+                text = "Subtitle 2",
+                style = MaterialTheme.typography.subtitle2,
+                color = currentTint
+            )
+        }
     }
 }
 
@@ -787,7 +763,7 @@ fun MockMenu() {
     Surface(
         shape = RoundedCornerShape(4.dp),
         elevation = 8.dp,
-        modifier = Modifier.preferredWidth(280.dp)
+        modifier = Modifier.width(280.dp)
     ) {
         Column(modifier = Modifier
             .padding(vertical = 8.dp)
@@ -807,7 +783,7 @@ private fun MockMenuItem() {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
                 .padding(horizontal = 16.dp)
-                .preferredHeight(48.dp)
+                .height(48.dp)
                 .fillMaxWidth()
     ) {
         Text(
@@ -817,7 +793,7 @@ private fun MockMenuItem() {
                     .weight(1f)
                     .padding(end = 32.dp)
         )
-        Icon(asset = Icons.Default.Favorite)
+        Icon(imageVector = Icons.Default.Favorite, contentDescription = "Favorite icon")
     }
 }
 
@@ -828,7 +804,7 @@ fun MockAlertDialog() {
     Surface(
         shape = RoundedCornerShape(4.dp),
         elevation = 24.dp,
-        modifier = Modifier.preferredWidth(280.dp)
+        modifier = Modifier.width(280.dp)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Column(
@@ -837,15 +813,15 @@ fun MockAlertDialog() {
                         .fillMaxWidth()
             ){
                 Text(text = "Headline 6", style = MaterialTheme.typography.h6)
-                Spacer(modifier = Modifier.preferredHeight(16.dp))
-                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
+                Spacer(modifier = Modifier.height(16.dp))
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                     Text(
                         text = "Subtitle 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
                         style = MaterialTheme.typography.subtitle1
                     )
                 }
             }
-            Spacer(modifier = Modifier.preferredHeight(28.dp))
+            Spacer(modifier = Modifier.height(28.dp))
             Row(
                 horizontalArrangement = Arrangement.End,
                 modifier = Modifier
@@ -879,14 +855,14 @@ fun MockSimpleBanner() {
                         .padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 8.dp)
                         .fillMaxWidth()
             ) {
-                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                     Text(
                         text = "One line text string with one action",
                         modifier = Modifier.weight(1f),
                         style = MaterialTheme.typography.body2
                     )
                 }
-                Spacer(modifier = Modifier.preferredWidth(36.dp))
+                Spacer(modifier = Modifier.width(36.dp))
                 TextButton(onClick = {}) {
                     Text(text = "Action".toUpperCase(Locale.ROOT))
                 }
@@ -911,9 +887,9 @@ fun MockFullBanner() {
                         .padding(start = 16.dp, top = 16.dp, bottom = 12.dp, end = 16.dp)
                         .fillMaxWidth()
             ){
-                MockImage(modifier = Modifier.clip(CircleShape).preferredSize(40.dp))
-                Spacer(modifier = Modifier.preferredWidth(16.dp))
-                ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
+                MockImage(modifier = Modifier.clip(CircleShape).size(40.dp))
+                Spacer(modifier = Modifier.width(16.dp))
+                CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
                     Text(
                         text = "Two line text string with two actions. One to two lines is preferable on mobile",
                         modifier = Modifier.weight(1f),
@@ -944,7 +920,7 @@ fun MockFullBanner() {
 @Composable
 fun MockImageListItem(modifier: Modifier = Modifier, active: Boolean = false) {
     Box(modifier = modifier
-            .preferredHeight(207.dp)
+            .height(207.dp)
     ) {
         MockImage(modifier = Modifier.fillMaxSize())
         Column(
@@ -959,7 +935,7 @@ fun MockImageListItem(modifier: Modifier = Modifier, active: Boolean = false) {
                         .fillMaxWidth()
             ) {
                 Text(text = "Subtitle 1", style = MaterialTheme.typography.subtitle1)
-                Icon(asset = Icons.Default.Favorite)
+                Icon(imageVector = Icons.Default.Favorite, contentDescription = "Favorite icon")
             }
         }
         if (active) {
@@ -971,8 +947,8 @@ fun MockImageListItem(modifier: Modifier = Modifier, active: Boolean = false) {
 @Composable
 fun BaselineScreen1() {
     Column(modifier = Modifier
-        .preferredHeight(640.dp)
-        .preferredWidth(360.dp)
+        .height(640.dp)
+        .width(360.dp)
     ) {
         MockStatusbar()
         Scaffold(
@@ -985,12 +961,12 @@ fun BaselineScreen1() {
                             .fillMaxWidth()
                     ) {
                         // TODO: Icons are high emphasis, not medium like in Figma
-                        ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
-                            Icon(asset = Icons.Default.Menu)
+                        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+                            Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu icon")
                             Row {
-                                Icon(asset = Icons.Default.Share)
-                                Spacer(modifier = Modifier.preferredWidth(24.dp))
-                                Icon(asset = Icons.Default.Search)
+                                Icon(imageVector = Icons.Default.Share, contentDescription = "Icon")
+                                Spacer(modifier = Modifier.width(24.dp))
+                                Icon(imageVector = Icons.Default.Search, contentDescription = "Icon")
                             }
                         }
                     }
@@ -998,13 +974,13 @@ fun BaselineScreen1() {
             },
             floatingActionButton = {
                 FloatingActionButton(onClick = {}) {
-                    Icon(asset = Icons.Default.Add)
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Icon")
                 }
             },
             floatingActionButtonPosition = FabPosition.Center,
             isFloatingActionButtonDocked = true
         ) {
-            ScrollableColumn(
+            Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(8.dp)
             ){
@@ -1016,31 +992,31 @@ fun BaselineScreen1() {
                             CardTwoElementsTemplate()
                             Column(modifier = Modifier.padding(horizontal = 4.dp)) {
                                 MockImage(modifier = Modifier
-                                    .preferredHeight(168.dp)
+                                    .height(168.dp)
                                     .fillMaxWidth()
                                 )
-                                Spacer(modifier = Modifier.preferredHeight(4.dp))
+                                Spacer(modifier = Modifier.height(4.dp))
                                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                     for (y in 0..2) {
                                         MockImage(modifier = Modifier
-                                            .preferredHeight(112.dp)
+                                            .height(112.dp)
                                             .weight(1f)
                                         )
                                     }
                                 }
                             }
-                            Spacer(modifier = Modifier.preferredHeight(12.dp))
+                            Spacer(modifier = Modifier.height(12.dp))
                             Text(
                                 text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor",
                                 style = MaterialTheme.typography.body2,
                                 modifier = Modifier.padding(horizontal = 8.dp)
                             )
-                            Spacer(modifier = Modifier.preferredHeight(12.dp))
+                            Spacer(modifier = Modifier.height(12.dp))
                             Row(modifier = Modifier.padding(8.dp)) {
                                 TextButton(onClick = {}) {
                                     Text(text = "Button".toUpperCase(Locale.ROOT))
                                 }
-                                Spacer(modifier = Modifier.preferredWidth(16.dp))
+                                Spacer(modifier = Modifier.width(16.dp))
                                 TextButton(onClick = {}) {
                                     Text(text = "Button".toUpperCase(Locale.ROOT))
                                 }
@@ -1048,7 +1024,7 @@ fun BaselineScreen1() {
                         }
                     }
                 }
-                Spacer(modifier = Modifier.preferredHeight(100.dp))
+                Spacer(modifier = Modifier.height(100.dp))
             }
         }
     }
@@ -1056,6 +1032,7 @@ fun BaselineScreen1() {
 
 
 @Preview(showBackground = true, heightDp = 2000)
+@ExperimentalMaterialApi
 @Composable
 fun Baseline1() {
     MaterialStickersheetsTheme() {
